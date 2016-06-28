@@ -1,0 +1,441 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Query REST API Queryation and Client",
+    "description": "This is the REST API documentation for the Voyent Query Service.  It's also a dynamic client that you can use to exercise the API and try it out.",
+    "version": "1.0.0",
+    "license": {
+      "name": "ICESOFT COMMERCIAL SOURCE CODE LICENSE V 1.1",
+      "url": "http://www.icesoft.com/license/commercial-source-v1.1.html"
+    }
+  },
+  "host": "dev.bridgeit.io",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "basePath": "/query",
+  "produces": [
+    "application/json"
+  ],
+  "securityDefinitions": {
+    "token-query": {
+      "type": "apiKey",
+      "name": "access_token",
+      "in": "query"
+    },
+    "token-header": {
+      "type": "apiKey",
+      "name": "Bearer",
+      "in": "header"
+    }
+  },
+  "security": {
+    "token-query": [],
+    "token-header": []
+  },
+  "paths": {
+    "/{accountId}/realms/{realmId}/queries/{resourceId}": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which one or more realms are managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "realmId",
+          "in": "path",
+          "description": "The realm under which this resource is managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "resourceId",
+          "in": "path",
+          "description": "The unique id associated with this specific resource.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "access_token",
+          "in": "query",
+          "description": "A time-limited token used to authenticate every service request.",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve a Query",
+        "description": "Retrieve a single specific record associated with the resourceId.",
+        "tags": [
+          "Query"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a single, specific record uniquely identified by the resourceId",
+            "schema": {
+              "$ref": "#/definitions/Query"
+            }
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Store a Query",
+        "description": "Save a specific Query using the provided resourceId as the key.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The resource to be saved.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Query"
+            }
+          }
+        ],
+        "tags": [
+          "Query"
+        ],
+        "responses": {
+          "201": {
+            "description": "Returns a unique resource id URI in the Location: header as well as in the body of the response.",
+            "schema": {
+              "$ref": "#/definitions/Query"
+            }
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a Query",
+        "description": "Update a specific Query using the provided resourceId as the key.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The updated resource.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Query"
+            }
+          }
+        ],
+        "tags": [
+          "Query"
+        ],
+        "responses": {
+          "204": {
+            "description": "Returns status code indicating succes and no further content."
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove a Query",
+        "description": "Delete a specific Query associated with the resourceId.",
+        "tags": [
+          "Query"
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates that the resource was successfully deleted."
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/{accountId}/realms/{realmId}/queries": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which one or more realms are managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "realmId",
+          "in": "path",
+          "description": "The realm under which this resource is managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "access_token",
+          "in": "query",
+          "description": "A time-limited token used to authenticate every service request.",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve one or more Queries",
+        "description": "Retrieve one or more Queries.  Instead of specifying a specific resourceId, the results are determined by optionally setting database query options.",
+        "parameters": [
+          {
+            "name": "results",
+            "in": "query",
+            "description": "A flag indicating if you want \"all\" records (default) for this query or just \"one\". (all|one)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "A valid search query.  If omitted, the default query is used.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Specify which fields to include/exclude in the response.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "options",
+            "in": "query",
+            "description": "Other options for the query (e.g. paging and sorting).",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Queries"
+        ],
+        "responses": {
+          "200": {
+            "description": "All resources that match the query.",
+            "schema": {
+              "$ref": "#/definitions/Queries"
+            }
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove one or more Queries",
+        "description": "Deletes one or more Queries.  Instead of specifying a specific resourceId, the results are determined by optionally setting database query options.",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "A valid search query.  If omitted, the default query is used.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Queries"
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates that the resource was successfully deleted."
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Query": {
+      "description": "A Query represents a JSON document.",
+      "type": "object"
+    },
+    "Queries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Query"
+      }
+    },
+    "Error": {
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
