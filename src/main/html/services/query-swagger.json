@@ -263,6 +263,94 @@
         }
       }
     },
+    "/{accountId}/realms/{realmId}/queries/{resourceId}?exec=true": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which one or more realms are managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "realmId",
+          "in": "path",
+          "description": "The realm under which this resource is managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "resourceId",
+          "in": "path",
+          "description": "The unique id associated with this specific resource.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "access_token",
+          "in": "query",
+          "description": "A time-limited token used to authenticate every service request.",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "summary": "Execute a Query",
+        "description": "Execute a specific Query using the provided resourceId as the key.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The parameters to pass to the Query.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Query"
+            }
+          }
+        ],
+        "tags": [
+          "Query"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the results from the executed query.",
+            "schema": {
+              "$ref": "#/definitions/Query"
+            }
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
     "/{accountId}/realms/{realmId}/queries": {
       "parameters": [
         {
