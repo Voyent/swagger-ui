@@ -1,0 +1,316 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Notification REST API Documentation and Client",
+    "description": "This is the REST API documentation for the Voyent Notification Service.  It's also a dynamic client that you can use to exercise the API and try it out.",
+    "version": "1.0.0",
+    "license": {
+      "name": "ICESOFT COMMERCIAL SOURCE CODE LICENSE V 1.1",
+      "url": "http://www.icesoft.com/license/commercial-source-v1.1.html"
+    }
+  },
+  "host": "dev.bridgeit.io",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "basePath": "/push",
+  "produces": [
+    "application/json"
+  ],
+  "securityDefinitions": {
+    "token-query": {
+      "type": "apiKey",
+      "name": "access_token",
+      "in": "query"
+    },
+    "token-header": {
+      "type": "apiKey",
+      "name": "Bearer",
+      "in": "header"
+    }
+  },
+  "security": {
+    "token-query": [],
+    "token-header": []
+  },
+  "paths": {
+    "/{accountId}/realms/{realmId}/group/{resourceId}": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which one or more realms are managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "realmId",
+          "in": "path",
+          "description": "The realm under which this resource is managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "resourceId",
+          "in": "path",
+          "description": "The unique id associated with this specific resource.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "access_token",
+          "in": "query",
+          "description": "A time-limited token used to authenticate every service request.",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "summary": "Notify a Group",
+        "description": "Send a message to a group identified by the resourceId.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The message (with metadata) to be sent.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          }
+        ],
+        "tags": [
+          "Notification"
+        ],
+        "responses": {
+          "204": {
+            "description": "Returns status code indicating success and no additional content."
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/{accountId}/realms/{realmId}/cloud/{resourceId}": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which one or more realms are managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "realmId",
+          "in": "path",
+          "description": "The realm under which this resource is managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "resourceId",
+          "in": "path",
+          "description": "The unique id associated with this specific resource.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "access_token",
+          "in": "query",
+          "description": "A time-limited token used to authenticate every service request.",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve a Cloud Configuration",
+        "description": "Retrieve a single specific record associated with the resourceId.",
+        "tags": [
+          "Cloud"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a single, specific record uniquely identified by the resourceId",
+            "schema": {
+              "$ref": "#/definitions/Document"
+            }
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Store a Cloud Configuration",
+        "description": "Save a specific Cloud Configuration using the provided resourceId as the key.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The resource to be saved.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Cloud Configuration"
+            }
+          }
+        ],
+        "tags": [
+          "Cloud"
+        ],
+        "responses": {
+          "201": {
+            "description": "Returns a unique resource id URI in the Location: header as well as in the body of the response.",
+            "schema": {
+              "$ref": "#/definitions/Cloud Configuration"
+            }
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove a Cloud Configuration",
+        "description": "Delete a specific Cloud Configuration associated with the resourceId.",
+        "tags": [
+          "Cloud"
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates that the resource was successfully deleted."
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Cloud Configuration": {
+        "description": "A Document represents a Cloud Configuration endpoint for push requests.",
+        "type": "object"
+      },
+      "Error": {
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

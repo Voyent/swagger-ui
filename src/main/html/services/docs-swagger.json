@@ -18,6 +18,22 @@
   "produces": [
     "application/json"
   ],
+  "securityDefinitions": {
+    "token-query": {
+      "type": "apiKey",
+      "name": "access_token",
+      "in": "query"
+    },
+    "token-header": {
+      "type": "apiKey",
+      "name": "Bearer",
+      "in": "header"
+    }
+  },
+  "security": {
+    "token-query": [],
+    "token-header": []
+  },
   "paths": {
     "/{accountId}/realms/{realmId}/{collectionId}/{resourceId}": {
       "parameters": [
@@ -61,43 +77,43 @@
         "summary": "Retrieve a Document",
         "description": "Retrieve a single specific record associated with the resourceId.",
         "tags": [
-          "Documents"
+          "Document"
         ],
         "responses": {
           "200": {
             "description": "Returns a single, specific record uniquely identified by the resourceId",
             "schema": {
-              "$ref": "Document"
+              "$ref": "#/definitions/Document"
             }
           },
           "400": {
             "description": "Invalid request. Parameters may be missing or incorrect.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           },
           "401": {
             "description": "Unable to perform operation due to invalid permission.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           },
           "404": {
             "description": "Could not find the resource associated with this id.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           },
           "500": {
             "description": "Server error.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           },
           "default": {
             "description": "Unexpected error",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -112,48 +128,48 @@
             "description": "The resource to be saved.",
             "required": true,
             "schema": {
-              "$ref": "Document"
+              "$ref": "#/definitions/Document"
             }
           }
         ],
         "tags": [
-          "Documents"
+          "Document"
         ],
         "responses": {
           "201": {
             "description": "Returns a unique resource id URI in the Location: header as well as in the body of the response.",
             "schema": {
-              "$ref": "Document"
+              "$ref": "#/definitions/Document"
             }
           },
           "400": {
             "description": "Invalid request. Parameters may be missing or incorrect.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           },
           "401": {
             "description": "Unable to perform operation due to invalid permission.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           },
           "404": {
             "description": "Could not find the resource associated with this id.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           },
           "500": {
             "description": "Server error.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           },
           "default": {
             "description": "Unexpected error",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -162,7 +178,7 @@
         "summary": "Remove a Document",
         "description": "Delete a specific Document associated with the resourceId.",
         "tags": [
-          "Documents"
+          "Document"
         ],
         "responses": {
           "204": {
@@ -171,31 +187,31 @@
           "400": {
             "description": "Invalid request. Parameters may be missing or incorrect.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           },
           "401": {
             "description": "Unable to perform operation due to invalid permission.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           },
           "404": {
             "description": "Could not find the resource associated with this id.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           },
           "500": {
             "description": "Server error.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           },
           "default": {
             "description": "Unexpected error",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/#/definitions/Error"
             }
           }
         }
@@ -272,37 +288,37 @@
           "200": {
             "description": "All resources that match the query.",
             "schema": {
-              "$ref": "Documents"
+              "$ref": "#/definitions/Documents"
             }
           },
           "400": {
             "description": "Invalid request. Parameters may be missing or incorrect.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           },
           "401": {
             "description": "Unable to perform operation due to invalid permission.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           },
           "404": {
             "description": "Could not find the resource associated with this id.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           },
           "500": {
             "description": "Server error.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           },
           "default": {
             "description": "Unexpected error",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -329,31 +345,31 @@
           "400": {
             "description": "Invalid request. Parameters may be missing or incorrect.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           },
           "401": {
             "description": "Unable to perform operation due to invalid permission.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           },
           "404": {
             "description": "Could not find the resource associated with this id.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           },
           "500": {
             "description": "Server error.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           },
           "default": {
             "description": "Unexpected error",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -368,7 +384,7 @@
     "Documents": {
       "type": "array",
       "items": {
-        "$ref": "Document"
+        "$ref": "#/definitions/Document"
       }
     },
     "Error": {
