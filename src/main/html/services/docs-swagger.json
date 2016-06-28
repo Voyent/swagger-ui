@@ -237,13 +237,6 @@
         "description": "Retrieve one or more Documents.  Instead of specifying a specific resourceId, the results are determined by optionally setting database query options.",
         "parameters": [
           {
-            "name": "realmId",
-            "in": "path",
-            "description": "The realm under which this resource is managed.",
-            "required": true,
-            "type": "string"
-          },
-          {
             "name": "results",
             "in": "query",
             "description": "A flag indicating if you want \"all\" records (default) for this query or just \"one\". (all|one)",
