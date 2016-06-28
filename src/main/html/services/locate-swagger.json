@@ -1,0 +1,1956 @@
+{
+    "swagger": 2.0,
+    "info": {
+        "title": "Locate REST API Documentation and Client",
+        "description": "This is the REST API documentation for the BridgeIt Location Service.  It's also a dynamic client that you can use to exercise the API and try it out.",
+        "version": "1.0.0",
+        "license": {
+            "name": "ICESOFT COMMERCIAL SOURCE CODE LICENSE V 1.1",
+            "url": "http://www.icesoft.com/license/commercial-source-v1.1.html"
+        }
+    },
+    "host": "dev.bridgeit.io",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "basePath": "/locate",
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/{accountId}/realms/{realmId}/locations/{resourceId}": {
+            "get": {
+                "summary": "Retrieve a Location",
+                "description": "Retrieve a single specific record associated with the resourceId.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "resourceId",
+                        "in": "path",
+                        "description": "The unique id associated with this specific resource.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "Locations"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns a single, specific record uniquely identified by the resourceId",
+                        "schema": {
+                            "$ref": "Location"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Store a Location",
+                "description": "Save a specific Location using the provided resourceId as the key.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "resourceId",
+                        "in": "path",
+                        "description": "The unique id associated with this specific resource.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "The resource to be saved.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "Location"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Locations"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Returns a unique resource id URI in the Location: header as well as in the body of the response.",
+                        "schema": {
+                            "$ref": "Location"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Remove a Location",
+                "description": "Delete a specific Location associated with the resourceId.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "resourceId",
+                        "in": "path",
+                        "description": "The unique id associated with this specific resource.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "Locations"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Indicates that the resource was successfully deleted."
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/{accountId}/realms/{realmId}/locations": {
+            "get": {
+                "summary": "Retrieve one or more Locations",
+                "description": "Retrieve one or more Locations.  Instead of specifying a specific resourceId, the results are determined by optionally setting database query options.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "results",
+                        "in": "query",
+                        "description": "A flag indicating if you want \"all\" records (default) for this query or just \"one\". (all|one)",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "A valid search query.  If omitted, the default query is used.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "fields",
+                        "in": "query",
+                        "description": "Specify which fields to include/exclude in the response.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "options",
+                        "in": "query",
+                        "description": "Other options for the query (e.g. paging and sorting).",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "Locations"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All resources that match the query.",
+                        "schema": {
+                            "$ref": "Locations"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Store a Location",
+                "description": "Save a specific Location.  Since the resourceId is not provided, one is generated for by the server.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "The resource to be saved.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "Location"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Locations"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Returns a resourceId URI in the Location: header as well as in the body of the response."
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Remove one or more Locations",
+                "description": "Deletes one or more Locations.  Instead of specifying a specific resourceId, the results are determined by optionally setting database query options.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "resourceId",
+                        "in": "path",
+                        "description": "The unique id associated with this specific resource.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "A valid search query.  If omitted, the default query is used.",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "Locations"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Indicates that the resource was successfully deleted."
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/{accountId}/realms/{realmId}/regions/{resourceId}": {
+            "get": {
+                "summary": "Retrieve a Region",
+                "description": "Retrieve a single specific record associated with the resourceId.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "resourceId",
+                        "in": "path",
+                        "description": "The unique id associated with this specific resource.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "Regions"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns a single, specific record uniquely identified by the resourceId.",
+                        "schema": {
+                            "$ref": "Region"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Store a Region",
+                "description": "Save a specific Region using the provided resourceId as the key.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "resourceId",
+                        "in": "path",
+                        "description": "The unique id associated with this specific resource.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "The resource to be saved.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "Region"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Regions"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Returns a unique resourceId URI in the Location: header as well as in the body of the response.",
+                        "schema": {
+                            "$ref": "Region"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Remove a Region",
+                "description": "Delete a specific Region associated with the resourceId.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "resourceId",
+                        "in": "path",
+                        "description": "The unique id associated with this specific resource.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "Regions"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Indicates that the resource was successfully deleted."
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/{accountId}/realms/{realmId}/regions": {
+            "get": {
+                "summary": "Retrieve one or more Regions",
+                "description": "Retrieve one or more Regions.  Instead of specifying a specific resourceId, the results are determined by optionally setting database query options.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "results",
+                        "in": "query",
+                        "description": "A flag indicating if you want \"all\" records (default) for this query or just \"one\". (all|one)",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "A valid search query.  If omitted, the default query is used.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "fields",
+                        "in": "query",
+                        "description": "Specify which fields to include/exclude in the response.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "options",
+                        "in": "query",
+                        "description": "Other options for the query (e.g. paging and sorting).",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "Regions"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All resources that match the query.",
+                        "schema": {
+                            "$ref": "Regions"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Store a Region",
+                "description": "Save a specific Region.  Since the resourceId is not provided, one is generated by the server.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "The resource to be saved.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "Region"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Regions"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Returns a resourceId URI in the Location: header as well as in the body of the response."
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Remove one or more Regions",
+                "description": "Deletes one or more Regions.  Instead of specifying a specific resourceId, the results are determined by optionally setting database query options.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "resourceId",
+                        "in": "path",
+                        "description": "The unique id associated with this specific resource.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "A valid search query.  If omitted, the default query is used.",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "Regions"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Indicates that the resource was successfully deleted."
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/{accountId}/realms/{realmId}/poi/{resourceId}": {
+            "get": {
+                "summary": "Retrieve a Point of Interest (POI)",
+                "description": "Retrieve a single specific record associated with the resourceId.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "resourceId",
+                        "in": "path",
+                        "description": "The unique id associated with this specific resource.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "POI"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns a single, specific record uniquely identified by the resourceId.",
+                        "schema": {
+                            "$ref": "POI"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Store Point of Interest (POI)",
+                "description": "Save a specific Point of Interest (POI) using the provided resourceId as the key.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "resourceId",
+                        "in": "path",
+                        "description": "The unique id associated with this specific resource.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "The resource to be saved.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "PointOfInterest"
+                        }
+                    }
+                ],
+                "tags": [
+                    "POI"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Returns a unique resource id URI in the Location: header as well as in the body of the response.",
+                        "schema": {
+                            "$ref": "POI"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Remove a Point of Interest (POI)",
+                "description": "Delete a specific POI associated with the resourceId.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "resourceId",
+                        "in": "path",
+                        "description": "The unique id associated with this specific resource.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "POI"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Indicates that the resource was successfully deleted."
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/{accountId}/realms/{realmId}/poi": {
+            "get": {
+                "summary": "Retrieve one or more Points of Interest (POI)",
+                "description": "Retrieve one or more Points of Interest (POI).  Instead of specifying a specific resource id, the results are determined by optionally setting database query options.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "results",
+                        "in": "query",
+                        "description": "A flag indicating if you want \"all\" location records (default) for this query or just \"one\". (all|one)",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "A valid search query.  If omitted, the default query is used.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "fields",
+                        "in": "query",
+                        "description": "Specify which fields to include/exclude in the response.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "options",
+                        "in": "query",
+                        "description": "Other options for the query (e.g. paging and sorting).",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "POI"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All Points of Interest (POI) that match the query.",
+                        "schema": {
+                            "$ref": "POIs"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Store a Point of Interest (POI)",
+                "description": "Save a specific Point of Interest (POI)  Since the resourceId is not provided, one is generated for by the server.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "resourceId",
+                        "in": "path",
+                        "description": "The unique id associated with this specific resource.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "The resource to be saved.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "PointOfInterest"
+                        }
+                    }
+                ],
+                "tags": [
+                    "POI"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Returns a resourceId URI in the Location: header as well as in the body of the response."
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Remove one or more Points of Interest (POI)",
+                "description": "Delete one or more Points of Interest (POI).  Instead of specifying a specific resource id, the results are determined by optionally setting database query options.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "resourceId",
+                        "in": "path",
+                        "description": "The unique id associated with this specific resource.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "A valid search query.  If omitted, the default query is used.",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "POI"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Indicates that the POI was successfully deleted."
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/{accountId}/realms/{realmId}/monitors/{resourceId}": {
+            "get": {
+                "summary": "Retrieve a Monitor",
+                "description": "Retrieve a single specific record associated with the resourceId.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "resourceId",
+                        "in": "path",
+                        "description": "The unique id associated with this specific resource.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "Monitors"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns a single, specific record uniquely identified by the resourceId.",
+                        "schema": {
+                            "$ref": "Monitor"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Store a Monitor",
+                "description": "Save a specific Monitor using the provided resourceId as the key.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "resourceId",
+                        "in": "path",
+                        "description": "The unique id associated with this specific resource.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "The resource to be saved.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "Monitor"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Monitors"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Returns a unique resourceId URI in the Location: header as well as in the body of the response.",
+                        "schema": {
+                            "$ref": "Monitor"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Remove a Monitor",
+                "description": "Delete a specific Monitor associated with the resourceId.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "resourceId",
+                        "in": "path",
+                        "description": "The unique id associated with this specific resource.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "Monitors"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Indicates that the resource was successfully deleted."
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/{accountId}/realms/{realmId}/monitors": {
+            "get": {
+                "summary": "Retrieve one or more Monitors",
+                "description": "Retrieve one or more Monitors.  Instead of specifying a specific resource id, the results are determined by optionally setting database query options.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "results",
+                        "in": "query",
+                        "description": "A flag indicating if you want \"all\" location records (default) for this query or just \"one\". (all|one)",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "A valid search query.  If omitted, the default query is used.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "fields",
+                        "in": "query",
+                        "description": "Specify which fields to include/exclude in the response.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "options",
+                        "in": "query",
+                        "description": "Other options for the query (e.g. paging and sorting).",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "Monitors"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All Points of Interest (POI) that match the query.",
+                        "schema": {
+                            "$ref": "Monitors"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Store a Monitor",
+                "description": "Save a specific Point of Interest (POI)  Since the resourceId is not provided, one is generated for by the server.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "resourceId",
+                        "in": "path",
+                        "description": "The unique id associated with this specific resource.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "The resource to be saved.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "Monitor"
+                        }
+                    }
+                ],
+                "tags": [
+                    "POI"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Returns a resourceId URI in the Location: header as well as in the body of the response."
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Remove one or more Points of Interest (POI)",
+                "description": "Delete one or more Points of Interest (POI).  Instead of specifying a specific resource id, the results are determined by optionally setting database query options.",
+                "parameters": [
+                    {
+                        "name": "realmId",
+                        "in": "path",
+                        "description": "The realm under which this resource is managed.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "resourceId",
+                        "in": "path",
+                        "description": "The unique id associated with this specific resource.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "A valid search query.  If omitted, the default query is used.",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "Monitors"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Indicates that the POI was successfully deleted."
+                    },
+                    "400": {
+                        "description": "Invalid request. Parameters may be missing or incorrect.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Unable to perform operation due to invalid permission.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the resource associated with this id.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Position": {
+            "description": "A single geographic point",
+            "type": "array",
+            "minItems": 2,
+            "items": [
+                {
+                    "description": "Longitude (-180 to 180)",
+                    "type": "number",
+                    "minimum": -180,
+                    "maximum": 180
+                },
+                {
+                    "description": "Latitude (-90 to 90)",
+                    "type": "number",
+                    "minimum": -90,
+                    "maximum": 90
+                }
+
+            ]
+        },
+        "PositionArray": {
+            "description": "An array of Positions",
+            "type": "array",
+            "items": {
+                "$ref": "Position"
+            }
+        },
+        "LinearRing": {
+            "description": "A single geographic point",
+            "minItems": 4,
+            "allOf": [
+                {
+                    "$ref": "PositionArray"
+                }
+            ]
+        },
+        "Polygon": {
+            "description": "An array of LinearRings",
+            "type": "array",
+            "items": {
+                "$ref": "LinearRing"
+            }
+        },
+        "Location": {
+            "description": "A Location represents a users location information (longitude, latitude) in GeoJSON format. It also includes related metadata and optional, custom properties.",
+            "type": "object",
+            "required": ["location"],
+            "properties": {
+                "label": {
+                    "description": "Human friendly name for this resource.",
+                    "type": "string"
+                },
+                "location": {
+                    "description": "The GeoJSON record for this resource.",
+                    "type": "object",
+                    "properties": {
+                        "geometry": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "enum": ["Point"],
+                                    "default": "Point"
+                                },
+                                "coordinates": {
+                                    "$ref": "Position"
+                                }
+                            }
+                        },
+                        "properties": {
+                            "type": "object",
+                            "description": "Optional, additional properties of the resource.",
+                            "properties": {
+                                "altitude": {
+                                    "description": "The altitude of the Location in meters.",
+                                    "type": "number"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "Locations": {
+            "type": "array",
+            "items": {
+                "$ref": "Location"
+            }
+        },
+        "POI": {
+            "description": "A point of interest (POI). Includes meta data and a single GeoJSON Point.",
+            "type": "object",
+            "required": ["location"],
+            "properties": {
+                "label": {
+                    "description": "Human friendly name for this resource.",
+                    "type": "string"
+                },
+                "location": {
+                    "description": "The GeoJSON record for this resource.",
+                    "type": "object",
+                    "properties": {
+                        "geometry": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "enum": ["Point"],
+                                    "default": "Point"
+                                },
+                                "coordinates": {
+                                    "$ref": "Position"
+                                }
+                            }
+                        },
+                        "properties": {
+                            "type": "object",
+                            "description": "Optional, additional properties of the resource.",
+                            "properties": {
+                                "altitude": {
+                                    "description": "The altitude of the POI in meters.",
+                                    "type": "number"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "POIs": {
+            "type": "array",
+            "items": {
+                "$ref": "POI"
+            }
+        },
+        "Region": {
+            "description": "A Region represents a geographic area in GeoJSON format - a bounding polygon that consists of a closed set of geographic (longitude, latitude) points. It also includes related metadata and optional, custom properties.",
+            "type": "object",
+            "required": ["location"],
+            "properties": {
+                "label": {
+                    "description": "Optional, human friendly name for this resource.",
+                    "type": "string"
+                },
+                "location": {
+                    "description": "The GeoJSON record for this resource.",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "enum": ["Feature"],
+                            "default": "Feature",
+                            "description": "Part of the GeoJSON spec (inserted if not provided)."
+                        },
+                        "geometry": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "enum": ["Polygon"],
+                                    "default": "Polygon"
+                                },
+                                "coordinates": {
+                                    "$ref": "Polygon"
+                                }
+                            }
+                        },
+                        "properties": {
+                            "type": "object",
+                            "description": "Optional, additional properties of the resource.",
+                            "properties": {
+                                "tags": {
+                                    "description": "An array of strings to help group and classify the Region.",
+                                    "type": "array",
+                                    "minItems": 0,
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "altitude": {
+                                    "description": "The altitude of the Region in meters.",
+                                    "type": "number"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "Regions": {
+            "type": "array",
+            "items": {
+                "$ref": "Region"
+            }
+        },
+        "Monitor": {
+            "description": "A Monitor is used to identify the locations and events to listen for as well as which endpoints to notify when an event of interest occurs. - namely a bounding polygon that consists of a closed set of geographic (longitude, latitude) points. It also includes related metadata and optional, custom properties.",
+            "type": "object",
+            "properties": {
+                "label": {
+                    "description": "Optional, human friendly name for this resource.",
+                    "type": "string"
+                },
+
+                "active": {
+                    "type": "boolean",
+                    "description": "Indicates whether or not this monitor is currently active.",
+                    "default": true
+                },
+                "elapsedTimeLimit": {
+                    "type": "integer",
+                    "description": "The time in minutes after which a location update is considered a new entry rather than an update to a previous location.",
+                    "default": 5,
+                    "minimum": 1
+                },
+                "locationChangeLimit": {
+                    "type": "integer",
+                    "description": "The minimum distance in meters for a location change to be considered significant.",
+                    "default": 10,
+                    "minimum": 10
+                },
+                "locationNearLimit": {
+                    "type": "integer",
+                    "description": "The minimum distance in meters required to be considered near a Point of Interest (POI).",
+                    "default": 1000,
+                    "minimum": 10
+                },
+                "regions": {
+                    "description": "A collection of resourceIds and/or tags referencing Regions.",
+                    "type": "object",
+                    "properties": {
+                        "ids": {
+                            "description": "Set of resourceIds representing the Regions to be monitored.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "uniqueItems": true
+                        },
+                        "tags": {
+                            "description": "Set of tags describing the Regions to be monitored.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "uniqueItems": true
+                        }
+                    }
+                },
+                "poi": {
+                    "description": "A collection of resourceIds and/or tags referencing Points of Interest (POI)",
+                    "type": "object",
+                    "properties": {
+                        "ids": {
+                            "description": "Set of resourceIds representing the Points of Interest to be monitored.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "uniqueItems": true
+                        },
+                        "tags": {
+                            "description": "Set of tags representing the Points of Interest to be monitored.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "uniqueItems": true
+                        }
+                    }
+                },
+                "events": {
+                    "description": "Set of event names that the Monitor should listen for.",
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "string"
+                    },
+                    "uniqueItems": true
+                },
+                "destinations": {
+                    "description": "Set of endpoints to call when the monitor detects a valid location trigger or event.",
+                    "type": "object",
+                    "properties": {
+                        "url": {
+                            "description": "A legal URL endpoint to notify when a valid locate event occurs.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "uniqueItems": true
+                        },
+                        "properties": {
+                            "description": "Information to be sent along to the endpoint as the payload.",
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "Monitors": {
+                "type": "array",
+                "items": {
+                    "$ref": "Monitor"
+                }
+            },
+            "Error": {
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
