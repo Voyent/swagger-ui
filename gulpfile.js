@@ -18,30 +18,30 @@ var jshint = require('gulp-jshint');
 var pkg = require('./package.json');
 
 var banner = ['/**',
-  ' * <%= pkg.name %> - <%= pkg.description %>',
-  ' * @version v<%= pkg.version %>',
-  ' * @link <%= pkg.homepage %>',
-  ' * @license <%= pkg.license %>',
-  ' */',
-  ''].join('\n');
+    ' * <%= pkg.name %> - <%= pkg.description %>',
+    ' * @version v<%= pkg.version %>',
+    ' * @link <%= pkg.homepage %>',
+    ' * @license <%= pkg.license %>',
+    ' */',
+    ''].join('\n');
 
 /**
  * Clean ups ./dist folder
  */
-gulp.task('clean', function() {
-  return gulp
-    .src('./dist', {read: false})
-    .pipe(clean({force: true}))
-    .on('error', log);
+gulp.task('clean', function () {
+    return gulp
+        .src('./dist', {read: false})
+        .pipe(clean({force: true}))
+        .on('error', log);
 });
 
 /**
  * JShint all *.js files
  */
 gulp.task('lint', function () {
-  return gulp.src('./src/main/javascript/**/*.js')
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'));
+    return gulp.src('./src/main/javascript/**/*.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter('jshint-stylish'));
 });
 
 /**
@@ -49,32 +49,32 @@ gulp.task('lint', function () {
  */
 gulp.task('dist', ['clean', 'lint'], _dist);
 function _dist() {
-  return es.merge(
-    gulp.src([
-        './src/main/javascript/**/*.js',
-        './node_modules/swagger-client/browser/swagger-client.js'
-      ]),
-      gulp
-        .src(['./src/main/template/**/*'])
-        .pipe(handlebars())
-        .pipe(wrap('Handlebars.template(<%= contents %>)'))
-        .pipe(declare({
-          namespace: 'Handlebars.templates',
-          noRedeclare: true, // Avoid duplicate declarations
-        }))
-        .on('error', log)
+    return es.merge(
+        gulp.src([
+            './src/main/javascript/**/*.js',
+            './node_modules/swagger-client/browser/swagger-client.js'
+        ]),
+        gulp
+            .src(['./src/main/template/**/*'])
+            .pipe(handlebars())
+            .pipe(wrap('Handlebars.template(<%= contents %>)'))
+            .pipe(declare({
+                namespace: 'Handlebars.templates',
+                noRedeclare: true, // Avoid duplicate declarations
+            }))
+            .on('error', log)
     )
-    .pipe(order(['scripts.js', 'templates.js']))
-    .pipe(concat('swagger-ui.js'))
-    .pipe(wrap('(function(){<%= contents %>}).call(this);'))
-    .pipe(header(banner, { pkg: pkg }))
-    .pipe(gulp.dest('./dist'))
-    .pipe(uglify())
-    .on('error', log)
-    .pipe(rename({extname: '.min.js'}))
-    .on('error', log)
-    .pipe(gulp.dest('./dist'))
-    .pipe(connect.reload());
+        .pipe(order(['scripts.js', 'templates.js']))
+        .pipe(concat('swagger-ui.js'))
+        .pipe(wrap('(function(){<%= contents %>}).call(this);'))
+        .pipe(header(banner, {pkg: pkg}))
+        .pipe(gulp.dest('./dist'))
+        .pipe(uglify())
+        .on('error', log)
+        .pipe(rename({extname: '.min.js'}))
+        .on('error', log)
+        .pipe(gulp.dest('./dist'))
+        .pipe(connect.reload());
 }
 gulp.task('dev-dist', ['lint', 'dev-copy'], _dist);
 
@@ -83,17 +83,20 @@ gulp.task('dev-dist', ['lint', 'dev-copy'], _dist);
  */
 gulp.task('less', ['clean'], _less);
 function _less() {
-  return gulp
-    .src([
-      './src/main/less/screen.less',
-      './src/main/less/print.less',
-      './src/main/less/reset.less',
-      './src/main/less/style.less'
-    ])
-    .pipe(less())
-    .on('error', function(err){ log(err); this.emit('end');})
-    .pipe(gulp.dest('./src/main/html/css/'))
-    .pipe(connect.reload());
+    return gulp
+        .src([
+            './src/main/less/screen.less',
+            './src/main/less/print.less',
+            './src/main/less/reset.less',
+            './src/main/less/style.less'
+        ])
+        .pipe(less())
+        .on('error', function (err) {
+            log(err);
+            this.emit('end');
+        })
+        .pipe(gulp.dest('./src/main/html/css/'))
+        .pipe(connect.reload());
 }
 gulp.task('dev-less', _less);
 
@@ -102,64 +105,65 @@ gulp.task('dev-less', _less);
  */
 gulp.task('copy', ['less'], _copy);
 function _copy() {
-  // copy JavaScript files inside lib folder
-  gulp
-    .src(['./lib/**/*.{js,map}'])
-    .pipe(gulp.dest('./dist/lib'))
-    .on('error', log);
+    // copy JavaScript files inside lib folder
+    gulp
+        .src(['./lib/**/*.{js,map}'])
+        .pipe(gulp.dest('./dist/lib'))
+        .on('error', log);
 
-  // copy `lang` for translations
-  gulp
-    .src(['./lang/**/*.js'])
-    .pipe(gulp.dest('./dist/lang'))
-    .on('error', log);
+    // copy `lang` for translations
+    gulp
+        .src(['./lang/**/*.js'])
+        .pipe(gulp.dest('./dist/lang'))
+        .on('error', log);
 
-  // copy all files inside html folder
-  gulp
-    .src(['./src/main/html/**/*'])
-    .pipe(gulp.dest('./dist'))
-    .on('error', log);
+    // copy all files inside html folder
+    gulp
+        .src(['./src/main/html/**/*'])
+        .pipe(gulp.dest('./dist'))
+        .on('error', log);
 }
 gulp.task('dev-copy', ['dev-less', 'copy-local-specs'], _copy);
 
 gulp.task('copy-local-specs', function () {
-  // copy the test specs
-  return gulp
-    .src(['./test/specs/**/*'])
-    .pipe(gulp.dest('./dist/specs'))
-    .on('error', log);
+    // copy the test specs
+    return gulp
+        .src(['./test/specs/**/*'])
+        .pipe(gulp.dest('./dist/specs'))
+        .on('error', log);
 });
 
 /**
  * Watch for changes and recompile
  */
-gulp.task('watch', ['copy-local-specs'], function() {
-  return watch([
-    './src/**/*.{js,less,handlebars}',
-    './src/main/html/*.html',
-    './test/specs/**/*.{json,yaml}'
-    ],
-    function() {
-      gulp.start('dev-dist');
-    });
+gulp.task('watch', ['copy-local-specs'], function () {
+    return watch([
+            './src/**/*.{js,less,handlebars}',
+            './src/main/html/*.html',
+            './test/specs/**/*.{json,yaml}',
+            './src/main/html/services/*.json'
+        ],
+        function () {
+            gulp.start('dev-dist');
+        });
 });
 
 /**
  * Live reload web server of `dist`
  */
-gulp.task('connect', function() {
-  connect.server({
-    root: 'dist',
-    livereload: true
-  });
+gulp.task('connect', function () {
+    connect.server({
+        root: 'dist',
+        livereload: true
+    });
 });
 
 function log(error) {
-  console.error(error.toString && error.toString());
+    console.error(error.toString && error.toString());
 }
 
 gulp.task('default', ['dist', 'copy']);
 gulp.task('serve', ['connect', 'watch']);
 gulp.task('dev', ['default'], function () {
-  gulp.start('serve');
+    gulp.start('serve');
 });

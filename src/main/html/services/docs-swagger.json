@@ -1,446 +1,393 @@
 {
-    "swagger": 2.0,
-    "info": {
-        "title": "Document REST API Documentation and Client",
-        "description": "This is the REST API documentation for the BridgeIt Document Service.  It's also a dynamic client that you can use to exercise the API and try it out.",
-        "version": "1.0.0",
-        "license": {
-            "name": "ICESOFT COMMERCIAL SOURCE CODE LICENSE V 1.1",
-            "url": "http://www.icesoft.com/license/commercial-source-v1.1.html"
-        }
-    },
-    "host": "dev.bridgeit.io",
-    "schemes": [
-        "http",
-        "https"
-    ],
-    "basePath": "/docs",
-    "produces": [
-        "application/json"
-    ],
-    "paths": {
-        "/{realmId}/documents/{resourceId}": {
-            "get": {
-                "summary": "Retrieve a Document",
-                "description": "Retrieve a single specific record associated with the resourceId.",
-                "parameters": [
-                    {
-                        "name": "realmId",
-                        "in": "path",
-                        "description": "The realm under which this resource is managed.",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "resourceId",
-                        "in": "path",
-                        "description": "The unique id associated with this specific resource.",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "tags": [
-                    "Documents"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Returns a single, specific record uniquely identified by the resourceId",
-                        "schema": {
-                            "$ref": "Document"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid request. Parameters may be missing or incorrect.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "401": {
-                        "description": "Unable to perform operation due to invalid permission.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "404": {
-                        "description": "Could not find the resource associated with this id.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "500": {
-                        "description": "Server error.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "summary": "Store a Document",
-                "description": "Save a specific Document using the provided resourceId as the key.",
-                "parameters": [
-                    {
-                        "name": "realmId",
-                        "in": "path",
-                        "description": "The realm under which this resource is managed.",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "resourceId",
-                        "in": "path",
-                        "description": "The unique id associated with this specific resource.",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "The resource to be saved.",
-                        "required": true,
-                        "schema": {
-                            "$ref": "Document"
-                        }
-                    }
-                ],
-                "tags": [
-                    "Documents"
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Returns a unique resource id URI in the Location: header as well as in the body of the response.",
-                        "schema": {
-                            "$ref": "Document"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid request. Parameters may be missing or incorrect.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "401": {
-                        "description": "Unable to perform operation due to invalid permission.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "404": {
-                        "description": "Could not find the resource associated with this id.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "500": {
-                        "description": "Server error.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "summary": "Remove a Document",
-                "description": "Delete a specific Document associated with the resourceId.",
-                "parameters": [
-                    {
-                        "name": "realmId",
-                        "in": "path",
-                        "description": "The realm under which this resource is managed.",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "resourceId",
-                        "in": "path",
-                        "description": "The unique id associated with this specific resource.",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "tags": [
-                    "Documents"
-                ],
-                "responses": {
-                    "204": {
-                        "description": "Indicates that the resource was successfully deleted."
-                    },
-                    "400": {
-                        "description": "Invalid request. Parameters may be missing or incorrect.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "401": {
-                        "description": "Unable to perform operation due to invalid permission.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "404": {
-                        "description": "Could not find the resource associated with this id.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "500": {
-                        "description": "Server error.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    }
-                }
-            }
-        },
-        "/{realmId}/documents": {
-            "get": {
-                "summary": "Retrieve one or more Documents",
-                "description": "Retrieve one or more Documents.  Instead of specifying a specific resourceId, the results are determined by optionally setting database query options.",
-                "parameters": [
-                    {
-                        "name": "realmId",
-                        "in": "path",
-                        "description": "The realm under which this resource is managed.",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "results",
-                        "in": "query",
-                        "description": "A flag indicating if you want \"all\" records (default) for this query or just \"one\". (all|one)",
-                        "required": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "query",
-                        "in": "query",
-                        "description": "A valid search query.  If omitted, the default query is used.",
-                        "required": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "fields",
-                        "in": "query",
-                        "description": "Specify which fields to include/exclude in the response.",
-                        "required": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "options",
-                        "in": "query",
-                        "description": "Other options for the query (e.g. paging and sorting).",
-                        "required": false,
-                        "type": "string"
-                    }
-                ],
-                "tags": [
-                    "Documents"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "All resources that match the query.",
-                        "schema": {
-                            "$ref": "Documents"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid request. Parameters may be missing or incorrect.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "401": {
-                        "description": "Unable to perform operation due to invalid permission.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "404": {
-                        "description": "Could not find the resource associated with this id.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "500": {
-                        "description": "Server error.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "summary": "Store a Document",
-                "description": "Save a specific Document.  Since the resourceId is not provided, one is generated for by the server.",
-                "parameters": [
-                    {
-                        "name": "realmId",
-                        "in": "path",
-                        "description": "The realm under which this resource is managed.",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "The resource to be saved.",
-                        "required": true,
-                        "schema": {
-                            "$ref": "Document"
-                        }
-                    }
-                ],
-                "tags": [
-                    "Documents"
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Returns a resourceId URI in the Location: header as well as in the body of the response."
-                    },
-                    "400": {
-                        "description": "Invalid request. Parameters may be missing or incorrect.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "401": {
-                        "description": "Unable to perform operation due to invalid permission.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "404": {
-                        "description": "Could not find the resource associated with this id.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "500": {
-                        "description": "Server error.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "summary": "Remove one or more Documents",
-                "description": "Deletes one or more Documents.  Instead of specifying a specific resourceId, the results are determined by optionally setting database query options.",
-                "parameters": [
-                    {
-                        "name": "realmId",
-                        "in": "path",
-                        "description": "The realm under which this resource is managed.",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "resourceId",
-                        "in": "path",
-                        "description": "The unique id associated with this specific resource.",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "query",
-                        "in": "query",
-                        "description": "A valid search query.  If omitted, the default query is used.",
-                        "required": false,
-                        "type": "string"
-                    }
-                ],
-                "tags": [
-                    "Documents"
-                ],
-                "responses": {
-                    "204": {
-                        "description": "Indicates that the resource was successfully deleted."
-                    },
-                    "400": {
-                        "description": "Invalid request. Parameters may be missing or incorrect.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "401": {
-                        "description": "Unable to perform operation due to invalid permission.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "404": {
-                        "description": "Could not find the resource associated with this id.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "500": {
-                        "description": "Server error.",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "Error"
-                        }
-                    }
-                }
-            }
-        }
-    },
-    "definitions": {
-        "Document": {
-            "description": "A Location represents a users location information (longitude, latitude) in GeoJSON format. It also includes related metadata and optional, custom properties.",
-            "type": "object"
-        },
-        "Documents": {
-            "type": "array",
-            "items": {
-                "$ref": "Document"
-            }
-        },
-        "Error": {
-            "properties": {
-                "code": {
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "message": {
-                    "type": "string"
-                }
-            }
-        }
+  "swagger": "2.0",
+  "info": {
+    "title": "Document REST API Documentation and Client",
+    "description": "This is the REST API documentation for the Voyent Document Service.  It's also a dynamic client that you can use to exercise the API and try it out.",
+    "version": "1.0.0",
+    "license": {
+      "name": "ICESOFT COMMERCIAL SOURCE CODE LICENSE V 1.1",
+      "url": "http://www.icesoft.com/license/commercial-source-v1.1.html"
     }
+  },
+  "host": "dev.bridgeit.io",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "basePath": "/docs",
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/{accountId}/realms/{realmId}/{collectionId}/{resourceId}": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which one or more realms are managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "realmId",
+          "in": "path",
+          "description": "The realm under which this resource is managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "collectionId",
+          "in": "path",
+          "description": "The name of the document collection used to store this document",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "resourceId",
+          "in": "path",
+          "description": "The unique id associated with this specific resource.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "access_token",
+          "in": "query",
+          "description": "A time-limited token used to authenticate every service request.",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve a Document",
+        "description": "Retrieve a single specific record associated with the resourceId.",
+        "tags": [
+          "Documents"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a single, specific record uniquely identified by the resourceId",
+            "schema": {
+              "$ref": "Document"
+            }
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Store a Document",
+        "description": "Save a specific Document using the provided resourceId as the key.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The resource to be saved.",
+            "required": true,
+            "schema": {
+              "$ref": "Document"
+            }
+          }
+        ],
+        "tags": [
+          "Documents"
+        ],
+        "responses": {
+          "201": {
+            "description": "Returns a unique resource id URI in the Location: header as well as in the body of the response.",
+            "schema": {
+              "$ref": "Document"
+            }
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove a Document",
+        "description": "Delete a specific Document associated with the resourceId.",
+        "tags": [
+          "Documents"
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates that the resource was successfully deleted."
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "Error"
+            }
+          }
+        }
+      }
+    },
+    "/{accountId}/realms/{realmId}/{collectionId}": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which one or more realms are managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "realmId",
+          "in": "path",
+          "description": "The realm under which this resource is managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "collectionId",
+          "in": "path",
+          "description": "The name of the document collection",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "access_token",
+          "in": "query",
+          "description": "A time-limited token used to authenticate every service request.",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve one or more Documents",
+        "description": "Retrieve one or more Documents.  Instead of specifying a specific resourceId, the results are determined by optionally setting database query options.",
+        "parameters": [
+          {
+            "name": "realmId",
+            "in": "path",
+            "description": "The realm under which this resource is managed.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "results",
+            "in": "query",
+            "description": "A flag indicating if you want \"all\" records (default) for this query or just \"one\". (all|one)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "A valid search query.  If omitted, the default query is used.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Specify which fields to include/exclude in the response.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "options",
+            "in": "query",
+            "description": "Other options for the query (e.g. paging and sorting).",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Documents"
+        ],
+        "responses": {
+          "200": {
+            "description": "All resources that match the query.",
+            "schema": {
+              "$ref": "Documents"
+            }
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove one or more Documents",
+        "description": "Deletes one or more Documents.  Instead of specifying a specific resourceId, the results are determined by optionally setting database query options.",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "A valid search query.  If omitted, the default query is used.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Documents"
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates that the resource was successfully deleted."
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Document": {
+      "description": "A Document represents a JSON document.",
+      "type": "object"
+    },
+    "Documents": {
+      "type": "array",
+      "items": {
+        "$ref": "Document"
+      }
+    },
+    "Error": {
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
 }
