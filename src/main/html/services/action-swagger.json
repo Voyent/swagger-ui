@@ -1,0 +1,564 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Action Service REST API Documentation and Client",
+    "description": "This is the REST API documentation for the Voyent Action Service. It's also a dynamic client that you can use to exercise the API",
+    "version": "1.0.0",
+    "license": {
+      "name": "ICESOFT COMMERCIAL SOURCE CODE LICENSE V 1.1",
+      "url": "http://www.icesoft.com/license/commercial-source-v1.1.html"
+    }
+  },
+  "host": "dev.bridgeit.io",
+  "securityDefinitions": {
+    "token-query": {
+      "type": "apiKey",
+      "name": "access_token",
+      "in": "query"
+    },
+    "token-header": {
+      "type": "apiKey",
+      "name": "Bearer",
+      "in": "header"
+    }
+  },
+  "security": {
+    "token-query": [],
+    "token-header": []
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "basePath": "/action",
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/{accountId}/realms/{realmId}/action/{resourceId}": {
+      // Single paths
+      "parameters": [
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which one or more realms are managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "realmId",
+          "in": "path",
+          "description": "The realm under which this resource is managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "resourceId",
+          "in": "path",
+          "description": "The unique id associated with this specific resource.",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve an Action script",
+        "description": "Retrieve a single specific record associated with the resourceId.",
+        "tags": [
+          "Actions"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a single, specific record uniquely identified by the resourceId",
+            "schema": {
+              "$ref": "Action"
+            }
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Save an Action script",
+        "description": "Save a specific Action using the provided resourceId as the key.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The resource to be saved.",
+            "required": true,
+            "schema": {
+              "$ref": "Action"
+            }
+          },
+          {
+            "name": "exec",
+            "in": "query",
+            "description": "Execute the query, instead of saving one",
+            "required": false
+          }
+        ],
+        "tags": [
+          "Actions"
+        ],
+        "responses": {
+          "201": {
+            "description": "Returns the created resource id URI in the Location: header as well as in the body of the response."
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove an Action",
+        "description": "Delete a specific Action identified by the resourceId .",
+        "tags": [
+          "Actions"
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates that the resource was successfully deleted."
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an Action script",
+        "description": "Save a specific Action using the provided resourceId as the key. This takes the client version as verbatim",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "A copy of the resource to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "Action"
+            }
+          }
+        ],
+        "tags": [
+          "Actions"
+        ],
+        "responses": {
+          "201": {
+            "description": "Indicates the Action has been updated"
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "Error"
+            }
+          }
+        }
+      }
+    },
+    "/{accountId}/realms/{realmId}/action": {
+      // Multiple action paths
+      "parameters": [
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which one or more realms are managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "realmId",
+          "in": "path",
+          "description": "The realm under which this resource is managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "query",
+          "in": "query",
+          "description": "The query string for finding a set of actions. Default {} (find all)",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "description": "A limit clause for the number of actions to get",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "fields",
+          "in": "query",
+          "description": "A fields clause for retrieving a certain projection",
+          "required": false,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve any action scripts that match the query parameters",
+        "description": "Retrieve the set of actions found by the query.",
+        "tags": [
+          "Actions"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns an array of Action records that match the query",
+            "schema": {
+              "$ref": "Actions"
+            }
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove a set of actions ",
+        "description": "Delete a set of actions that are selected by a query. Be careful! This operation cannot be undone",
+        "tags": [
+          "Actions"
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates that the resources were successfully deleted."
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "Error"
+            }
+          }
+        }
+      }
+    },
+    "/{accountId}/realms/{realmId}/action/{resourceId}/permissions": {
+      // permissions
+      "parameters": [
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which one or more realms are managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "realmId",
+          "in": "path",
+          "description": "The realm under which this resource is managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "resourceId",
+          "in": "path",
+          "description": "The id of the resource on which to act",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve the permissions settings for an Action resource",
+        "description": "Retrieve the access permissions block for a resource. Read permission pr is required to read the permissions",
+        "parameters": [
+        ],
+        "tags": [
+          "Actions"
+        ],
+        "responses": {
+          "200": {
+            "description": "The permission block for the resource",
+            "schema": {
+              "$ref": "Permission"
+            }
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a resources permissions",
+        "description": "Update the permission block for the resource. Access requires 'pr' permission to perform",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "A copy of the resource to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "Permission"
+            }
+          }
+        ],
+        "tags": [
+          "Actions"
+        ],
+        "responses": {
+          "204": {
+            "description": "The permission block has been successfully updated"
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "Error"
+            }
+          }
+        }
+      },
+      "definitions": {
+        "Action": {
+          "description": "An action consists of tasks, grouped under taskGroups. TBD. ",
+          "type": "object"
+        },
+        "Actions": {
+          "type": "array",
+          "items": {
+            "$ref": "Action"
+          }
+        },
+        "Permission": {
+          "owner": {
+            "description": "The username of the creator of the resource",
+            "type": "string"
+          },
+          "rights": {
+            "description": "The rights description block",
+            "$ref": "RightsBlock"
+          }
+        },
+        "RightsBlock": {
+          "owner": {
+            "description": "The rights defined for the owner of the resource. Any of ['r', 'u', 'd', 'x', 'pr', 'pu']",
+            "type": "string"
+          },
+          "realm": {
+            "description": "Access rights granted to other users in the same realm. Any of ['r', 'u', 'd', 'x', 'pr', 'pu']",
+            "type": "string"
+          },
+          "roles": {
+            "description": "A set of access blocks granted to roles defined in the system",
+            "type": "object"
+          }
+        },
+        "Error": {
+          "properties": {
+            "code": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "message": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

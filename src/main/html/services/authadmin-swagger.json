@@ -1,8 +1,8 @@
 {
   "swagger": 2.0,
   "info": {
-    "title": "Auth REST API Documentation and Client",
-    "description": "This is the REST API documentation for the BridgeIt Auth Service.  It's also a dynamic client that you can use to exercise the API and try it out.",
+    "title": "AuthAdmin REST API Documentation and Client",
+    "description": "This is the REST API documentation for the BridgeIt AuthAmdin portion of the Voyent  Service.  It's also a dynamic client that you can use to exercise the API and try it out.",
     "version": "1.0.0",
     "license": {
       "name": "ICESOFT COMMERCIAL SOURCE CODE LICENSE V 1.1",
@@ -14,82 +14,12 @@
     "http",
     "https"
   ],
-  "basePath": "/auth",
+  "basePath": "/authadmin",
   "produces": [
     "application/json"
   ],
   "paths": {
-    "/{realmId}/token/local": {
-      "get": {
-        "summary": "Retrieve a valid access_token.",
-        "description": "Retrieve a time-limited access_token. This token is required to use other BridgeIt services.",
-        "parameters": [
-          {
-            "name": "realmId",
-            "in": "path",
-            "description": "The realm under which this token and all other service resources are managed.",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "username",
-            "in": "query",
-            "description": "A valid username for an account in this realm.",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "password",
-            "in": "query",
-            "description": "The password associated with this username.",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "Auth"
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns a single, specific record uniquely identified by the resourceId",
-            "schema": {
-              "$ref": "AccessToken"
-            }
-          },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "Error"
-            }
-          }
-        }
-      }
-    },
-    "/authadmin/:accountname": {
+     "/:accountname": {
         "get": {
           "summary": "Retrieve an account record",
           "description": "Retrieve an entire account record",
@@ -103,7 +33,7 @@
             }
           ],
           "tags": [
-            "Auth"
+            "AuthAdmin"
           ],
           "responses": {
             "200": {
