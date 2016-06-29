@@ -83,30 +83,6 @@
               "$ref": "#/definitions/Event"
             }
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
           "default": {
             "description": "Unexpected error",
             "schema": {
@@ -158,30 +134,6 @@
               "$ref": "#/definitions/Events"
             }
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
           "default": {
             "description": "Unexpected error",
             "schema": {
@@ -194,7 +146,7 @@
   },
   "definitions": {
     "Event": {
-      "description": "An Event represents a JSON document.",
+      "description": "An Event is data captured from some action of interest that has occurred. They are generated internally by Voyent Services or injected into Voyent via external processes.",
       "type": "object"
     },
     "Events": {
