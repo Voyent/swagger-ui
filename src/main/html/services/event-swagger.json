@@ -1,0 +1,219 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Event REST API Documentation and Client",
+    "description": "This is the REST API documentation for the Voyent Event Service.  It's also a dynamic client that you can use to exercise the API and try it out.",
+    "version": "1.0.0",
+    "license": {
+      "name": "ICESOFT COMMERCIAL SOURCE CODE LICENSE V 1.1",
+      "url": "http://www.icesoft.com/license/commercial-source-v1.1.html"
+    }
+  },
+  "host": "dev.bridgeit.io",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "basePath": "/event",
+  "produces": [
+    "application/json"
+  ],
+  "securityDefinitions": {
+    "token-query": {
+      "type": "apiKey",
+      "name": "access_token",
+      "in": "query"
+    },
+    "token-header": {
+      "type": "apiKey",
+      "name": "Bearer",
+      "in": "header"
+    }
+  },
+  "security": {
+    "token-query": [],
+    "token-header": []
+  },
+  "paths": {
+    "/{accountId}/realms/{realmId}/events": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which one or more realms are managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "realmId",
+          "in": "path",
+          "description": "The realm under which this resource is managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "access_token",
+          "in": "query",
+          "description": "A time-limited token used to authenticate every service request.",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "summary": "Send an Event",
+        "description": "Send an Event.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The resource to be saved.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Event"
+            }
+          }
+        ],
+        "tags": [
+          "Events"
+        ],
+        "responses": {
+          "201": {
+            "description": "Returns a unique resource id URI in the Location: header as well as in the body of the response.",
+            "schema": {
+              "$ref": "#/definitions/Event"
+            }
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Retrieve one or more Events",
+        "description": "Retrieve one or more Events.  Instead of specifying a specific resourceId, the results are determined by optionally setting database query options.",
+        "parameters": [
+          {
+            "name": "results",
+            "in": "query",
+            "description": "A flag indicating if you want \"all\" records (default) for this query or just \"one\". (all|one)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "A valid search query.  If omitted, the default query is used.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Specify which fields to include/exclude in the response.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "options",
+            "in": "query",
+            "description": "Other options for the query (e.g. paging and sorting).",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Events"
+        ],
+        "responses": {
+          "200": {
+            "description": "All resources that match the query.",
+            "schema": {
+              "$ref": "#/definitions/Events"
+            }
+          },
+          "400": {
+            "description": "Invalid request. Parameters may be missing or incorrect.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unable to perform operation due to invalid permission.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Could not find the resource associated with this id.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Event": {
+      "description": "An Event represents a JSON document.",
+      "type": "object"
+    },
+    "Events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Event"
+      }
+    },
+    "Error": {
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
+
