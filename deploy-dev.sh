@@ -6,9 +6,8 @@ REMOTE_DIR=/usr/share/nginx/html/static/api-docs
 #echo "Removing current dist directory..."
 #rm -rf ./dist
 
-#echo "Installing dependencies..."
-#npm install
-#
+echo "Installing dependencies..."
+npm install
 
 echo "Building..."
 npm run build
