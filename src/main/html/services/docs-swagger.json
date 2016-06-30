@@ -68,13 +68,6 @@
           "description": "The unique id associated with this specific resource.",
           "required": true,
           "type": "string"
-        },
-        {
-          "name": "access_token",
-          "in": "query",
-          "description": "A time-limited token used to authenticate every service request.",
-          "required": true,
-          "type": "string"
         }
       ],
       "get": {
@@ -241,13 +234,6 @@
           "name": "collectionId",
           "in": "path",
           "description": "The name of the document collection",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "access_token",
-          "in": "query",
-          "description": "A time-limited token used to authenticate every service request.",
           "required": true,
           "type": "string"
         }

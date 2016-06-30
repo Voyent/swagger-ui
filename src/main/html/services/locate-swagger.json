@@ -61,13 +61,6 @@
           "description": "The unique id associated with this specific resource.",
           "required": true,
           "type": "string"
-        },
-        {
-          "name": "access_token",
-          "in": "query",
-          "description": "A time-limited token used to authenticate every service request.",
-          "required": true,
-          "type": "string"
         }
       ],
       "get": {
@@ -239,13 +232,6 @@
           "description": "The unique id associated with this specific resource.",
           "required": true,
           "type": "string"
-        },
-        {
-          "name": "access_token",
-          "in": "query",
-          "description": "A time-limited token used to authenticate every service request.",
-          "required": true,
-          "type": "string"
         }
       ],
       "get": {
@@ -395,13 +381,6 @@
           "name": "resourceId",
           "in": "path",
           "description": "The unique id associated with this specific resource.",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "access_token",
-          "in": "query",
-          "description": "A time-limited token used to authenticate every service request.",
           "required": true,
           "type": "string"
         }
@@ -577,13 +556,6 @@
           "description": "The unique id associated with this specific resource.",
           "required": true,
           "type": "string"
-        },
-        {
-          "name": "access_token",
-          "in": "query",
-          "description": "A time-limited token used to authenticate every service request.",
-          "required": true,
-          "type": "string"
         }
       ],
       "get": {
@@ -733,13 +705,6 @@
           "name": "resourceId",
           "in": "path",
           "description": "The unique id associated with this specific resource.",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "access_token",
-          "in": "query",
-          "description": "A time-limited token used to authenticate every service request.",
           "required": true,
           "type": "string"
         }
@@ -912,13 +877,6 @@
           "name": "resourceId",
           "in": "path",
           "description": "The unique id associated with this specific resource.",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "access_token",
-          "in": "query",
-          "description": "A time-limited token used to authenticate every service request.",
           "required": true,
           "type": "string"
         }

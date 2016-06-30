@@ -61,13 +61,6 @@
           "description": "The unique id associated with this specific resource.",
           "required": true,
           "type": "string"
-        },
-        {
-          "name": "access_token",
-          "in": "query",
-          "description": "A time-limited token used to authenticate every service request.",
-          "required": true,
-          "type": "string"
         }
       ],
       "get": {
@@ -289,13 +282,6 @@
           "description": "The unique id associated with this specific resource.",
           "required": true,
           "type": "string"
-        },
-        {
-          "name": "access_token",
-          "in": "query",
-          "description": "A time-limited token used to authenticate every service request.",
-          "required": true,
-          "type": "string"
         }
       ],
       "post": {
@@ -368,13 +354,6 @@
           "name": "realmId",
           "in": "path",
           "description": "The realm under which this resource is managed.",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "access_token",
-          "in": "query",
-          "description": "A time-limited token used to authenticate every service request.",
           "required": true,
           "type": "string"
         }
