@@ -80,34 +80,10 @@
           "204": {
             "description": "Returns status code indicating success and no additional content."
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "Error"
             }
           }
         }
@@ -150,34 +126,10 @@
               "$ref": "#/definitions/Document"
             }
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "Error"
             }
           }
         }
@@ -206,34 +158,10 @@
               "$ref": "#/definitions/Cloud Configuration"
             }
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "Error"
             }
           }
         }
@@ -248,34 +176,10 @@
           "204": {
             "description": "Indicates that the resource was successfully deleted."
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "Error"
             }
           }
         }

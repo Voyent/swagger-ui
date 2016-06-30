@@ -70,32 +70,8 @@
             "description": "Returns a single, specific record uniquely identified by the resourceId",
             "type": "string"
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
               "$ref": "Error"
             }
@@ -123,32 +99,8 @@
           "201": {
             "description": "Returns the created resource id URI in the Location: header as well as in the body of the response."
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
               "$ref": "Error"
             }
@@ -165,32 +117,8 @@
           "204": {
             "description": "Indicates that the resource was successfully deleted."
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
               "$ref": "Error"
             }
@@ -216,32 +144,8 @@
           "201": {
             "description": "Indicates the Mailboxes content has been updated"
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
               "$ref": "Error"
             }
@@ -305,32 +209,8 @@
             "description": "Returns an array of Info records that match the query",
             "type": "object"
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
               "$ref": "Error"
             }
@@ -356,32 +236,8 @@
           "201": {
             "description": "Indicates the Mailbox/Info subresource content has been updated"
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
               "$ref": "Error"
             }
@@ -398,32 +254,8 @@
           "204": {
             "description": "Indicates that the resources were successfully deleted."
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
               "$ref": "Error"
             }
@@ -467,32 +299,8 @@
             "description": "Returns a single, specific Mail record uniquely identified by the resourceId",
             "type": "string"
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
               "$ref": "Error"
             }
@@ -509,32 +317,8 @@
           "204": {
             "description": "Indicates that the Mail subResource was successfully deleted"
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
               "$ref": "Error"
             }
@@ -560,32 +344,8 @@
           "201": {
             "description": "Indicates the Mailboxes content has been updated"
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
               "$ref": "Error"
             }
@@ -628,32 +388,8 @@
             "description": "Returns an array of Mailbox records that match the query",
             "type": "object"
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
               "$ref": "Error"
             }
@@ -670,32 +406,8 @@
           "204": {
             "description": "Indicates that the resources were successfully deleted."
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
               "$ref": "Error"
             }
@@ -742,32 +454,8 @@
               "$ref": "Permission"
             }
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
               "$ref": "Error"
             }
@@ -795,32 +483,8 @@
           "204": {
             "description": "The permission block has been successfully updated"
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
               "$ref": "Error"
             }

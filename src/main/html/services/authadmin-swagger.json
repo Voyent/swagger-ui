@@ -38,32 +38,8 @@
                 "$ref": "AccessToken"
               }
             },
-            "400": {
-              "description": "Invalid request. Parameters may be missing or incorrect.",
-              "schema": {
-                "$ref": "Error"
-              }
-            },
-            "401": {
-              "description": "Unable to perform operation due to invalid permission.",
-              "schema": {
-                "$ref": "Error"
-              }
-            },
-            "404": {
-              "description": "Could not find the resource associated with this id.",
-              "schema": {
-                "$ref": "Error"
-              }
-            },
-            "500": {
-              "description": "Server error.",
-              "schema": {
-                "$ref": "Error"
-              }
-            },
             "default": {
-              "description": "Unexpected error",
+              "description": "An error occurred.",
               "schema": {
                 "$ref": "Error"
               }
