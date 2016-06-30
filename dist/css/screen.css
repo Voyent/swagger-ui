@@ -1408,7 +1408,7 @@
 .swagger-section #header {
   background-color: #89bf04;
   padding: 9px 14px 19px 14px;
-  height: 23px;
+  height: 60px;
   min-width: 775px;
 }
 .swagger-section #input_baseUrl {
@@ -1486,4 +1486,10 @@
 .swagger-section .error {
   outline-color: #cc0000;
   background-color: #f2dede;
+}
+
+div#linkStrip {
+    font-family: sans-serif;
+    padding-top: 18px;
+    margin-left: 25%;
 }
