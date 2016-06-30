@@ -3,11 +3,7 @@
   "info": {
     "title": "Locate REST API Documentation and Client",
     "description": "This is the REST API documentation for the BridgeIt Location Service.  It's also a dynamic client that you can use to exercise the API and try it out.",
-    "version": "1.0.0",
-    "license": {
-      "name": "ICESOFT COMMERCIAL SOURCE CODE LICENSE V 1.1",
-      "url": "http://www.icesoft.com/license/commercial-source-v1.1.html"
-    }
+    "version": "1.0.0"
   },
   "host": "dev.bridgeit.io",
   "schemes": [
