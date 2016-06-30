@@ -18,6 +18,26 @@
   "produces": [
     "application/json"
   ],
+  "securityDefinitions": {
+    "token-query": {
+      "type": "apiKey",
+      "name": "access_token",
+      "in": "query"
+    },
+    "token-header": {
+      "type": "apiKey",
+      "name": "Bearer",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "token-query": []
+    },
+    {
+      "token-header": []
+    }
+  ],
   "paths": {
     "/{accountId}/realms/{realmId}/locations/{resourceId}": {
       "parameters": [

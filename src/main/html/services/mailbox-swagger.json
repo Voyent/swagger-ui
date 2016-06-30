@@ -22,10 +22,14 @@
       "in": "header"
     }
   },
-  "security": {
-    "token-query": [],
-    "token-header": []
-  },
+  "security": [
+    {
+      "token-query": []
+    },
+    {
+      "token-header": []
+    }
+  ],
   "schemes": [
     "http",
     "https"
