@@ -18,10 +18,14 @@
       "in": "header"
     }
   },
-  "security": {
-    "token-query": [],
-    "token-header": []
-  },
+  "security": [
+    {
+      "token-query": []
+    },
+    {
+      "token-header": []
+    }
+  ],
   "schemes": [
     "http",
     "https"
@@ -32,12 +36,11 @@
   ],
   "paths": {
     "/{accountId}/realms/{realmId}/action/{resourceId}": {
-      // Single paths
       "parameters": [
         {
-          "name": "accountId",
+          "name": "resourceId",
           "in": "path",
-          "description": "The account under which one or more realms are managed.",
+          "description": "The unique id associated with this specific resource.",
           "required": true,
           "type": "string"
         },
@@ -49,9 +52,9 @@
           "type": "string"
         },
         {
-          "name": "resourceId",
+          "name": "accountId",
           "in": "path",
-          "description": "The unique id associated with this specific resource.",
+          "description": "The account under which one or more realms are managed.",
           "required": true,
           "type": "string"
         }
@@ -66,37 +69,13 @@
           "200": {
             "description": "Returns a single, specific record uniquely identified by the resourceId",
             "schema": {
-              "$ref": "Action"
-            }
-          },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Action"
             }
           },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -111,14 +90,15 @@
             "description": "The resource to be saved.",
             "required": true,
             "schema": {
-              "$ref": "Action"
+              "$ref": "#/definitions/Action"
             }
           },
           {
             "name": "exec",
             "in": "query",
             "description": "Execute the query, instead of saving one",
-            "required": false
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
@@ -128,34 +108,10 @@
           "201": {
             "description": "Returns the created resource id URI in the Location: header as well as in the body of the response."
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -170,34 +126,10 @@
           "204": {
             "description": "Indicates that the resource was successfully deleted."
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -212,7 +144,7 @@
             "description": "A copy of the resource to be updated.",
             "required": true,
             "schema": {
-              "$ref": "Action"
+              "$ref": "#/definitions/Action"
             }
           }
         ],
@@ -223,53 +155,28 @@
           "201": {
             "description": "Indicates the Action has been updated"
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
       }
     },
     "/{accountId}/realms/{realmId}/action": {
-      // Multiple action paths
       "parameters": [
-        {
-          "name": "accountId",
-          "in": "path",
-          "description": "The account under which one or more realms are managed.",
-          "required": true,
-          "type": "string"
-        },
         {
           "name": "realmId",
           "in": "path",
           "description": "The realm under which this resource is managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which one or more realms are managed.",
           "required": true,
           "type": "string"
         },
@@ -305,37 +212,13 @@
           "200": {
             "description": "Returns an array of Action records that match the query",
             "schema": {
-              "$ref": "Actions"
-            }
-          },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Actions"
             }
           },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -350,41 +233,16 @@
           "204": {
             "description": "Indicates that the resources were successfully deleted."
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
       }
     },
     "/{accountId}/realms/{realmId}/action/{resourceId}/permissions": {
-      // permissions
       "parameters": [
         {
           "name": "accountId",
@@ -411,8 +269,7 @@
       "get": {
         "summary": "Retrieve the permissions settings for an Action resource",
         "description": "Retrieve the access permissions block for a resource. Read permission pr is required to read the permissions",
-        "parameters": [
-        ],
+        "parameters": [],
         "tags": [
           "Actions"
         ],
@@ -420,37 +277,13 @@
           "200": {
             "description": "The permission block for the resource",
             "schema": {
-              "$ref": "Permission"
-            }
-          },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Permission"
             }
           },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -465,7 +298,7 @@
             "description": "A copy of the resource to be updated.",
             "required": true,
             "schema": {
-              "$ref": "Permission"
+              "$ref": "#/definitions/Permission"
             }
           }
         ],
@@ -476,83 +309,64 @@
           "204": {
             "description": "The permission block has been successfully updated"
           },
-          "400": {
-            "description": "Invalid request. Parameters may be missing or incorrect.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "401": {
-            "description": "Unable to perform operation due to invalid permission.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "404": {
-            "description": "Could not find the resource associated with this id.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "Error"
-            }
-          },
           "default": {
-            "description": "Unexpected error",
+            "description": "An error occurred.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
-      },
-      "definitions": {
-        "Action": {
-          "description": "An action consists of tasks, grouped under taskGroups. TBD. ",
+      }
+    }
+  },
+  "definitions": {
+    "Action": {
+      "description": "An action consists of tasks, grouped under taskGroups. TBD. ",
+      "type": "object"
+    },
+    "Actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Action"
+      }
+    },
+    "RightsBlock": {
+      "type": "object",
+      "properties": {
+        "owner": {
+          "description": "The rights defined for the owner of the resource. Any of ['r', 'u', 'd', 'x', 'pr', 'pu']",
+          "type": "string"
+        },
+        "realm": {
+          "description": "Access rights granted to other users in the same realm. Any of ['r', 'u', 'd', 'x', 'pr', 'pu']",
+          "type": "string"
+        },
+        "roles": {
+          "description": "A set of access blocks granted to roles defined in the system",
           "type": "object"
+        }
+      }
+    },
+    "Permission": {
+      "type": "object",
+      "properties": {
+        "owner": {
+          "description": "The username of the creator of the resource",
+          "type": "string"
         },
-        "Actions": {
-          "type": "array",
-          "items": {
-            "$ref": "Action"
-          }
+        "rights": {
+          "$ref": "#/definitions/RightsBlock"
+        }
+      }
+    },
+    "Error": {
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
         },
-        "Permission": {
-          "owner": {
-            "description": "The username of the creator of the resource",
-            "type": "string"
-          },
-          "rights": {
-            "description": "The rights description block",
-            "$ref": "RightsBlock"
-          }
-        },
-        "RightsBlock": {
-          "owner": {
-            "description": "The rights defined for the owner of the resource. Any of ['r', 'u', 'd', 'x', 'pr', 'pu']",
-            "type": "string"
-          },
-          "realm": {
-            "description": "Access rights granted to other users in the same realm. Any of ['r', 'u', 'd', 'x', 'pr', 'pu']",
-            "type": "string"
-          },
-          "roles": {
-            "description": "A set of access blocks granted to roles defined in the system",
-            "type": "object"
-          }
-        },
-        "Error": {
-          "properties": {
-            "code": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "message": {
-              "type": "string"
-            }
-          }
+        "message": {
+          "type": "string"
         }
       }
     }

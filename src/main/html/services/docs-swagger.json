@@ -38,16 +38,9 @@
     "/{accountId}/realms/{realmId}/{collectionId}/{resourceId}": {
       "parameters": [
         {
-          "name": "accountId",
+          "name": "resourceId",
           "in": "path",
-          "description": "The account under which one or more realms are managed.",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "realmId",
-          "in": "path",
-          "description": "The realm under which this resource is managed.",
+          "description": "The unique id associated with this specific resource.",
           "required": true,
           "type": "string"
         },
@@ -59,9 +52,16 @@
           "type": "string"
         },
         {
-          "name": "resourceId",
+          "name": "realmId",
           "in": "path",
-          "description": "The unique id associated with this specific resource.",
+          "description": "The realm under which this resource is managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which one or more realms are managed.",
           "required": true,
           "type": "string"
         }
@@ -82,7 +82,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -114,7 +114,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -132,7 +132,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -141,9 +141,9 @@
     "/{accountId}/realms/{realmId}/{collectionId}": {
       "parameters": [
         {
-          "name": "accountId",
+          "name": "collectionId",
           "in": "path",
-          "description": "The account under which one or more realms are managed.",
+          "description": "The name of the document collection used to store this document",
           "required": true,
           "type": "string"
         },
@@ -155,9 +155,9 @@
           "type": "string"
         },
         {
-          "name": "collectionId",
+          "name": "accountId",
           "in": "path",
-          "description": "The name of the document collection",
+          "description": "The account under which one or more realms are managed.",
           "required": true,
           "type": "string"
         }
@@ -208,7 +208,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -235,7 +235,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }

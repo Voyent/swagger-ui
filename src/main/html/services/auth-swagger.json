@@ -57,13 +57,13 @@
           "200": {
             "description": "Returns a single, specific record uniquely identified by the resourceId",
             "schema": {
-              "$ref": "AccessToken"
+              "$ref": "#/definitions/AccessToken"
             }
           },
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }

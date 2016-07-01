@@ -75,7 +75,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -107,7 +107,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -136,7 +136,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -154,7 +154,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -211,7 +211,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -280,7 +280,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -307,7 +307,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
