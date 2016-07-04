@@ -1,0 +1,575 @@
+{
+  "swagger": 2.0,
+  "info": {
+    "title": "Eventhub REST API Documentation and Client",
+    "description": "This is the REST API documentation for the BridgeIt Eventhub Service. It's also a dynamic client that you can use to exercise the API and try it out.",
+    "version": "1.0.0",
+    "license": {
+      "name": "ICESOFT COMMERCIAL SOURCE CODE LICENSE V 1.1",
+      "url": "http://www.icesoft.com/license/commercial-source-v1.1.html"
+    }
+  },
+  "host": "dev.bridgeit.io",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "basePath": "/eventhub",
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/{accountId}/realms/{realmId}/handlers/{handlerId}": {
+      "parameters": [
+        {
+          "name": "handlerId",
+          "in": "path",
+          "description": "The unique id associated with this specific handler.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "realmId",
+          "in": "path",
+          "description": "The realm under which this handler is managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which the realm and the handler is managed.",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve a Handler ",
+        "description": "Retrieve a single specific handler associated with the handlerId.",
+        "tags": [
+          "Handler"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a single, specific handler uniquely identified by the handlerId",
+            "schema": {
+              "$ref": "#/definitions/Handler"
+            }
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Store a Handler",
+        "description": "Save a specific Handler using the provided handlerId as the key.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The handler to be saved.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Handler"
+            }
+          }
+        ],
+        "tags": [
+          "Handler"
+        ],
+        "responses": {
+          "201": {
+            "description": "Returns a unique handler id URI in the Location: header as well as in the body of the response."
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a Handler",
+        "description": "Update a specific Handler using the provided handlerId as the handler to update.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The new handler to be saved in place of the old one.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Handler"
+            }
+          }
+        ],
+        "tags": [
+          "Handler"
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates that the handler was successfully updated."
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove a Handler",
+        "description": "Delete a specific Handler associated with the handlerId.",
+        "parameters": [
+        ],
+        "tags": [
+          "Handler"
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates that the handler was successfully deleted."
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/{accountId}/realms/{realmId}/handlers": {
+      "parameters": [
+        {
+          "name": "realmId",
+          "in": "path",
+          "description": "The realm under which this handler is managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which the realm and the handler is managed.",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve one or more Handlers",
+        "description": "Retrieve one or more Handlers. Instead of specifying a specific handlerId, the results are determined by optionally setting database query options.",
+        "parameters": [
+          {
+            "name": "results",
+            "in": "query",
+            "description": "A flag indicating if you want \"all\" records (default) for this query or just \"one\". (all|one)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "A valid search query.  If omitted, the default query is used.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Specify which fields to include/exclude in the response.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "options",
+            "in": "query",
+            "description": "Other options for the query (e.g. paging and sorting).",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Handlers"
+        ],
+        "responses": {
+          "200": {
+            "description": "Handlers that match the specified query.",
+            "schema": {
+              "$ref": "#/definitions/Handlers"
+            }
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove one or more Handlers",
+        "description": "Deletes one or more Handlers. Instead of specifying a specific handlerId, the results are determined by optionally setting database query options.",
+        "parameters": [
+          {
+            "name": "results",
+            "in": "query",
+            "description": "A flag indicating if you want \"all\" records (default) for this query or just \"one\". (all|one)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "A valid search query.  If omitted, the default query is used.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Specify which fields to include/exclude in the response.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "options",
+            "in": "query",
+            "description": "Other options for the query (e.g. paging and sorting).",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Handlers"
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates that the handlers were successfully deleted."
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/{accountId}/realms/{realmId}/recognizers/{recognizerId}": {
+      "parameters": [
+        {
+          "name": "recognizerId",
+          "in": "path",
+          "description": "The unique id associated with this specific recognizer.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "realmId",
+          "in": "path",
+          "description": "The realm under which this handler is managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which the realm and the handler is managed.",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve a Recognizer ",
+        "description": "Retrieve a single specific recognizer associated with the recognizerId.",
+        "parameters": [
+        ],
+        "tags": [
+          "Recognizer"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a single, specific recognizer uniquely identified by the recognizerId",
+            "schema": {
+              "$ref": "#/definitions/Recognizer"
+            }
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Store a Recognizer",
+        "description": "Save a specific Recognizer using the provided recognizerId as the key.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The recognizer to be saved.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Recognizer"
+            }
+          }
+        ],
+        "tags": [
+          "Recognizer"
+        ],
+        "responses": {
+          "201": {
+            "description": "Returns a unique recognizer id URI in the Location: header as well as in the body of the response."
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a Recognizer",
+        "description": "Update a specific Recognizer using the provided recognizerId as the recognizer to update.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The new recognizer to be saved in place of the old one.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Recognizer"
+            }
+          }
+        ],
+        "tags": [
+          "Recognizer"
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates that the recognizer was successfully updated."
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove a Recognizer",
+        "description": "Delete a specific Recognizer associated with the recognizerId.",
+        "parameters": [
+        ],
+        "tags": [
+          "Recognizer"
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates that the recognizer was successfully deleted."
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/{accountId}/realms/{realmId}/recognizers": {
+      "parameters": [
+        {
+          "name": "realmId",
+          "in": "path",
+          "description": "The realm under which this handler is managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which the realm and the handler is managed.",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve one or more Recognizers",
+        "description": "Retrieve one or more Recognizers. Instead of specifying a specific recognizerId, the results are determined by optionally setting database query options.",
+        "parameters": [
+          {
+            "name": "results",
+            "in": "query",
+            "description": "A flag indicating if you want \"all\" records (default) for this query or just \"one\". (all|one)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "A valid search query.  If omitted, the default query is used.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Specify which fields to include/exclude in the response.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "options",
+            "in": "query",
+            "description": "Other options for the query (e.g. paging and sorting).",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Recognizers"
+        ],
+        "responses": {
+          "200": {
+            "description": "Recognizers that match the specified query.",
+            "schema": {
+              "$ref": "#/definitions/Recognizers"
+            }
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove one or more Recognizers",
+        "description": "Deletes one or more Recognizers. Instead of specifying a specific recognizerId, the results are determined by optionally setting database query options.",
+        "parameters": [
+          {
+            "name": "results",
+            "in": "query",
+            "description": "A flag indicating if you want \"all\" records (default) for this query or just \"one\". (all|one)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "A valid search query.  If omitted, the default query is used.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Specify which fields to include/exclude in the response.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "options",
+            "in": "query",
+            "description": "Other options for the query (e.g. paging and sorting).",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Recognizers"
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates that the recognizers were successfully deleted."
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Handler": {
+      "description": "Represents an event handler for events.",
+      "type": "object",
+      "properties": {
+        "active": {
+          "type": "boolean",
+          "description": "Specifies whether the event handler is active or not. If this is not set to true the event handler will be ignored.",
+          "default": false
+        },
+        "query": {
+          "type": "object",
+          "description": "The mongo query that will be compared against events. If an incoming event matches the query we will execute this handlers associated action.",
+          "required": true
+        },
+        "actionId": {
+          "type": "string",
+          "description": "The id of the action to be executed.",
+          "default": {},
+          "required": true
+        },
+        "actionParams": {
+          "type": "object",
+          "description": "Specifies parameter values to be set in the associated action.",
+          "default": {}
+        }
+      }
+    },
+    "Handlers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Handler"
+      }
+    },
+    "Recognizer": {
+      "description": "Represents an advanced pattern matcher for events.",
+      "type": "object",
+      "properties": {
+        "active": {
+          "type": "boolean",
+          "description": "Specifies whether the recognizer is active or not. If this is not set to true the recognizer will be ignored.",
+          "default": false
+        },
+        "script": {
+          "type": "string",
+          "description": "The ReactiveX script to be setup. The script must use the named variable \"realmObservable\" for the account/realm observable and the script's observer must be defined as \"recognizerObserver\".",
+          "required": true
+        }
+      }
+    },
+    "Recognizers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Recognizer"
+      }
+    },
+    "Error": {
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

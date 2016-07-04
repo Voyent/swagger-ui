@@ -194,7 +194,7 @@
             "description": "The parameters to pass to the Query.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Query"
+              "$ref": "#/definitions/QueryResults"
             }
           }
         ],
@@ -323,6 +323,12 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/Query"
+      }
+    },
+    "QueryResults": {
+      "type": "array",
+      "items": {
+        "type": "object"
       }
     },
     "Error": {
