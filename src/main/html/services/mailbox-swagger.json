@@ -68,7 +68,9 @@
         "responses": {
           "200": {
             "description": "Returns a single, specific record uniquely identified by the resourceId",
-            "type": "string"
+            "schema": {
+              "$ref": "#/definitions/Mailbox"
+            }
           },
           "default": {
             "description": "An error occurred.",
@@ -207,7 +209,9 @@
         "responses": {
           "200": {
             "description": "Returns an array of Info records that match the query",
-            "type": "object"
+            "schema": {
+              "$ref": "#/definitions/MailboxInfo"
+            }
           },
           "default": {
             "description": "An error occurred.",
@@ -286,7 +290,6 @@
           "required": true,
           "type": "string"
         }
-
       ],
       "get": {
         "summary": "Retrieve the contents of the Mail subResource",
@@ -297,7 +300,9 @@
         "responses": {
           "200": {
             "description": "Returns a single, specific Mail record uniquely identified by the resourceId",
-            "type": "string"
+            "schema": {
+              "$ref": "#/definitions/MailboxMail"
+            }
           },
           "default": {
             "description": "An error occurred.",
@@ -386,7 +391,9 @@
         "responses": {
           "200": {
             "description": "Returns an array of Mailbox records that match the query",
-            "type": "object"
+            "schema": {
+              "$ref": "#/definitions/MailboxState"
+            }
           },
           "default": {
             "description": "An error occurred.",
@@ -490,52 +497,64 @@
             }
           }
         }
+      }
+    }
+  },
+  "definitions": {
+    "Mailbox": {
+      "description": "Mailbox content may be any valid Javascript Object",
+      "type": "object"
+    },
+    "MailboxInfo": {
+      "description": "The Info subsection of the Mailbox.",
+      "type": "object"
+    },
+    "MailboxMail": {
+      "description": "The Mail subsection of the Mailbox.",
+      "type": "object"
+    },
+    "MailboxState": {
+      "description": "The State subsection of the Mailbox",
+      "type": "object"
+    },
+    "Mailboxes": {
+      "type": "array",
+      "items": {
+        "$ref": "Mailbox"
+      }
+    },
+    "Permission": {
+      "owner": {
+        "description": "The username of the creator of the resource",
+        "type": "string"
       },
-      "definitions": {
-        "Mailbox": {
-          "description": "Mailbox content may be any valid Javascript Object",
-          "type": "object"
+      "rights": {
+        "description": "The rights description block",
+        "$ref": "RightsBlock"
+      }
+    },
+    "RightsBlock": {
+      "owner": {
+        "description": "The rights defined for the owner of the resource. Any of ['r', 'u', 'd', 'x', 'pr', 'pu']",
+        "type": "string"
+      },
+      "realm": {
+        "description": "Access rights granted to other users in the same realm. Any of ['r', 'u', 'd', 'x', 'pr', 'pu']",
+        "type": "string"
+      },
+      "roles": {
+        "description": "A set of access blocks granted to roles defined in the system",
+        "type": "object"
+      }
+    },
+    "Error": {
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
         },
-        "Mailboxes": {
-          "type": "array",
-          "items": {
-            "$ref": "Mailbox"
-          }
-        },
-        "Permission": {
-          "owner": {
-            "description": "The username of the creator of the resource",
-            "type": "string"
-          },
-          "rights": {
-            "description": "The rights description block",
-            "$ref": "RightsBlock"
-          }
-        },
-        "RightsBlock": {
-          "owner": {
-            "description": "The rights defined for the owner of the resource. Any of ['r', 'u', 'd', 'x', 'pr', 'pu']",
-            "type": "string"
-          },
-          "realm": {
-            "description": "Access rights granted to other users in the same realm. Any of ['r', 'u', 'd', 'x', 'pr', 'pu']",
-            "type": "string"
-          },
-          "roles": {
-            "description": "A set of access blocks granted to roles defined in the system",
-            "type": "object"
-          }
-        },
-        "Error": {
-          "properties": {
-            "code": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "message": {
-              "type": "string"
-            }
-          }
+        "message": {
+          "type": "string"
         }
       }
     }
