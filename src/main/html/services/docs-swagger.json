@@ -108,7 +108,7 @@
           "201": {
             "description": "Returns a unique resource id URI in the Location: header as well as in the body of the response.",
             "schema": {
-              "$ref": "#/definitions/Document"
+              "$ref": "definitions.json#/LocationURI"
             }
           },
           "default": {
@@ -208,7 +208,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#/Error"
             }
           }
         }
@@ -256,16 +256,6 @@
         "$ref": "#/definitions/Document"
       }
     },
-    "Error": {
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
-        }
-      }
-    }
+
   }
 }

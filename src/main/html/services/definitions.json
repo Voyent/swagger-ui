@@ -1,0 +1,22 @@
+{
+  "LocationURI": {
+    "description": "A Document represents a JSON document.",
+    "type": "object",
+    "properties": {
+      "uri": {
+        "type": "string"
+      }
+    }
+  },
+  "Error": {
+    "properties": {
+      "code": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "message": {
+        "type": "string"
+      }
+    }
+  }
+}
