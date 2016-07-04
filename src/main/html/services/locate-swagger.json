@@ -265,7 +265,6 @@
         "summary": "Retrieve a Region",
         "description": "Retrieve a single specific record associated with the resourceId.",
         "parameters": [
-
         ],
         "tags": [
           "Region"
@@ -498,7 +497,7 @@
             "description": "The resource to be saved.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/PointOfInterest"
+              "$ref": "#/definitions/POI"
             }
           }
         ],
@@ -636,6 +635,15 @@
           }
         }
       }
+    },
+    "/{accountId}/realms/{realmId}/locations/{resourceId}/permissions": {
+      "$ref": "permission-swagger.json"
+    },
+    "/{accountId}/realms/{realmId}/poi/{resourceId}/permissions": {
+      "$ref": "permission-swagger.json"
+    },
+    "/{accountId}/realms/{realmId}/regions/{resourceId}/permissions": {
+      "$ref": "permission-swagger.json"
     }
   },
   "definitions": {
@@ -833,124 +841,14 @@
         "$ref": "#/definitions/Region"
       }
     },
-    "Monitor": {
-      "description": "A Monitor is used to identify the locations and events to listen for as well as which endpoints to notify when an event of interest occurs. - namely a bounding polygon that consists of a closed set of geographic (longitude, latitude) points. It also includes related metadata and optional, custom properties.",
-      "type": "object",
+    "Error": {
       "properties": {
-        "label": {
-          "description": "Optional, human friendly name for this resource.",
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
           "type": "string"
-        },
-        "active": {
-          "type": "boolean",
-          "description": "Indicates whether or not this monitor is currently active.",
-          "default": true
-        },
-        "elapsedTimeLimit": {
-          "type": "integer",
-          "description": "The time in minutes after which a location update is considered a new entry rather than an update to a previous location.",
-          "default": 5,
-          "minimum": 1
-        },
-        "locationChangeLimit": {
-          "type": "integer",
-          "description": "The minimum distance in meters for a location change to be considered significant.",
-          "default": 10,
-          "minimum": 10
-        },
-        "locationNearLimit": {
-          "type": "integer",
-          "description": "The minimum distance in meters required to be considered near a Point of Interest (POI).",
-          "default": 1000,
-          "minimum": 10
-        },
-        "regions": {
-          "description": "A collection of resourceIds and/or tags referencing Regions.",
-          "type": "object",
-          "properties": {
-            "ids": {
-              "description": "Set of resourceIds representing the Regions to be monitored.",
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "uniqueItems": true
-            },
-            "tags": {
-              "description": "Set of tags describing the Regions to be monitored.",
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "uniqueItems": true
-            }
-          }
-        },
-        "poi": {
-          "description": "A collection of resourceIds and/or tags referencing Points of Interest (POI)",
-          "type": "object",
-          "properties": {
-            "ids": {
-              "description": "Set of resourceIds representing the Points of Interest to be monitored.",
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "uniqueItems": true
-            },
-            "tags": {
-              "description": "Set of tags representing the Points of Interest to be monitored.",
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "uniqueItems": true
-            }
-          }
-        },
-        "events": {
-          "description": "Set of event names that the Monitor should listen for.",
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "string"
-          },
-          "uniqueItems": true
-        },
-        "destinations": {
-          "description": "Set of endpoints to call when the monitor detects a valid location trigger or event.",
-          "type": "object",
-          "properties": {
-            "url": {
-              "description": "A legal URL endpoint to notify when a valid locate event occurs.",
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "uniqueItems": true
-            },
-            "properties": {
-              "description": "Information to be sent along to the endpoint as the payload.",
-              "type": "object"
-            }
-          }
-        }
-      },
-      "Monitors": {
-        "type": "array",
-        "items": {
-          "$ref": "#/definitions/Monitor"
-        }
-      },
-      "Error": {
-        "properties": {
-          "code": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
-          }
         }
       }
     }

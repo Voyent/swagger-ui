@@ -1,0 +1,147 @@
+{
+  "get": {
+    "summary": "Retrieve the permissions settings for a resource",
+    "description": "Retrieve the access permissions block for any resource. Read permission 'pr' is required to read the permissions",
+    "parameters": [
+      {
+        "name": "accountId",
+        "in": "path",
+        "description": "The account under which one or more realms are managed.",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "realmId",
+        "in": "path",
+        "description": "The realm under which this resource is managed.",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "collectionId",
+        "in": "path",
+        "description": "The name of the document collection used to store this document",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "resourceId",
+        "in": "path",
+        "description": "The unique id associated with this specific resource.",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "tags": [
+      "Permissions"
+    ],
+    "responses": {
+      "200": {
+        "description": "The permission block for the resource",
+        "schema": {
+          "$ref": "#/definitions/Permission"
+        }
+      },
+      "default": {
+        "description": "An error occurred.",
+        "schema": {
+          "$ref": "#/definitions/Error"
+        }
+      }
+    }
+  },
+  "put": {
+    "summary": "Update a resources permissions",
+    "description": "Update the permission block for the resource. Access requires 'pr' permission to perform",
+    "parameters": [
+      {
+        "name": "accountId",
+        "in": "path",
+        "description": "The account under which one or more realms are managed.",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "realmId",
+        "in": "path",
+        "description": "The realm under which this resource is managed.",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "collectionId",
+        "in": "path",
+        "description": "The name of the document collection used to store this document",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "resourceId",
+        "in": "path",
+        "description": "The unique id associated with this specific resource.",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "body",
+        "in": "body",
+        "description": "A copy of the resource to be updated.",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/Permission"
+        }
+      }
+    ],
+    "tags": [
+      "Permissions"
+    ],
+    "responses": {
+      "204": {
+        "description": "The permission block has been successfully updated"
+      },
+      "default": {
+        "description": "An error occurred.",
+        "schema": {
+          "$ref": "#/definitions/Error"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Permission": {
+      "owner": {
+        "description": "The username of the creator of the resource",
+        "type": "string"
+      },
+      "rights": {
+        "description": "The rights description block",
+        "$ref": "RightsBlock"
+      }
+    },
+    "RightsBlock": {
+      "owner": {
+        "description": "The rights defined for the owner of the resource. Any of ['r', 'u', 'd', 'x', 'pr', 'pu']",
+        "type": "string"
+      },
+      "realm": {
+        "description": "Access rights granted to other users in the same realm. Any of ['r', 'u', 'd', 'x', 'pr', 'pu']",
+        "type": "string"
+      },
+      "roles": {
+        "description": "A set of access blocks granted to roles defined in the system",
+        "type": "object"
+      }
+    },
+    "Error": {
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

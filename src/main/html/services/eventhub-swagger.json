@@ -143,6 +143,9 @@
         }
       }
     },
+    "/{accountId}/realms/{realmId}/handlers/{resourceId}/permissions": {
+      "$ref": "permission-swagger.json"
+    },
     "/{accountId}/realms/{realmId}/handlers": {
       "parameters": [
         {
@@ -385,6 +388,9 @@
           }
         }
       }
+    },
+    "/{accountId}/realms/{realmId}/recognizers/{resourceId}/permissions": {
+      "$ref": "permission-swagger.json"
     },
     "/{accountId}/realms/{realmId}/recognizers": {
       "parameters": [
