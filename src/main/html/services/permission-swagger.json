@@ -32,7 +32,7 @@
       "200": {
         "description": "The permission block for the resource",
         "schema": {
-          "$ref": "Permission"
+          "$ref": "#/definitions/Permission"
         }
       },
       "default": {
@@ -74,7 +74,7 @@
         "description": "A copy of the resource to be updated.",
         "required": true,
         "schema": {
-          "$ref": "Permission"
+          "$ref": "#/definitions/Permission"
         }
       }
     ],
