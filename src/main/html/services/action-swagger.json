@@ -35,7 +35,7 @@
     "application/json"
   ],
   "paths": {
-    "/{accountId}/realms/{realmId}/action/{resourceId}": {
+    "/{accountId}/realms/{realmId}/actions/{resourceId}": {
       "parameters": [
         {
           "name": "resourceId",
@@ -164,7 +164,7 @@
         }
       }
     },
-    "/{accountId}/realms/{realmId}/action": {
+    "/{accountId}/realms/{realmId}/actions": {
       "parameters": [
         {
           "name": "realmId",
@@ -242,7 +242,7 @@
         }
       }
     },
-    "/{accountId}/realms/{realmId}/action/{resourceId}/permissions": {
+    "/{accountId}/realms/{realmId}/actions/{resourceId}/permissions": {
       "parameters": [
         {
           "name": "accountId",

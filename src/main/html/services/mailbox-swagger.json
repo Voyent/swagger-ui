@@ -111,7 +111,7 @@
         "summary": "Remove a mailbox",
         "description": "Delete a specific Mailbox identified by the resourceId .",
         "tags": [
-          "Actions"
+          "Mailboxes"
         ],
         "responses": {
           "204": {
@@ -179,14 +179,14 @@
         {
           "name": "query",
           "in": "query",
-          "description": "The query string for finding a set of actions. Default {} (find all)",
+          "description": "The query string for finding a set of mailboxes. Default {} (find all)",
           "required": false,
           "type": "string"
         },
         {
           "name": "limit",
           "in": "query",
-          "description": "A limit clause for the number of actions to get",
+          "description": "A limit clause for the number of mailboxes to get",
           "required": false,
           "type": "string"
         },
@@ -248,7 +248,7 @@
         "summary": "Remove the 'Info' subdocument from the Mailbox resource",
         "description": "Removes the 'Info' Mailbox subResource",
         "tags": [
-          "Actions"
+          "Mailboxes/Info"
         ],
         "responses": {
           "204": {
@@ -381,7 +381,7 @@
         "summary": "Retrieve the state subResource from the  mailbox",
         "description": "Retrieve the contents of the mailboxes state record identified by the resourceId",
         "tags": [
-          "Mailboxes/state"
+          "Mailboxes/State"
         ],
         "responses": {
           "200": {
@@ -415,7 +415,7 @@
         }
       }
     },
-    "/{accountId}/realms/{realmId}/action/{resourceId}/permissions": {
+    "/{accountId}/realms/{realmId}/mailbox/{resourceId}/permissions": {
       "parameters": [
         {
           "name": "accountId",
