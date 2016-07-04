@@ -34,8 +34,30 @@
       "token-header": []
     }
   ],
+  "tags": [
+    {
+      "name": "Query",
+      "description": "Individual Query operations."
+    },
+    {
+      "name": "Queries",
+      "description": "Group Query operations."
+    },
+    {
+      "name": "Find",
+      "description": "Queries that use the find() API."
+    },
+    {
+      "name": "Aggregate",
+      "description": "Queries that use the aggregate() API."
+    },
+    {
+      "name": "Chain",
+      "description": "Series of Queries and transformations."
+    }
+  ],
   "paths": {
-    "/{accountId}/realms/{realmId}/queries/{resourceId}": {
+    "/{accountId}/realms/{realmId}/queries/{findQueryId}": {
       "parameters": [
         {
           "name": "accountId",
@@ -52,24 +74,24 @@
           "type": "string"
         },
         {
-          "name": "resourceId",
+          "name": "findQueryId",
           "in": "path",
-          "description": "The unique id associated with this specific resource.",
+          "description": "The unique id of a Query that uses the find()-style API.",
           "required": true,
           "type": "string"
         }
       ],
       "get": {
         "summary": "Retrieve a Query",
-        "description": "Retrieve a single specific record associated with the resourceId.",
+        "description": "Retrieve a single specific Query associated with the id.",
         "tags": [
-          "Query"
+          "Find"
         ],
         "responses": {
           "200": {
-            "description": "Returns a single, specific record uniquely identified by the resourceId",
+            "description": "The a single Query that uses the find()-style API.",
             "schema": {
-              "$ref": "#/definitions/Query"
+              "$ref": "#/definitions/FindQuery"
             }
           },
           "default": {
@@ -82,26 +104,26 @@
       },
       "post": {
         "summary": "Store a Query",
-        "description": "Save a specific Query using the provided resourceId as the key.",
+        "description": "Save a specific Query using the provided id as the key.",
         "parameters": [
           {
             "name": "body",
             "in": "body",
-            "description": "The resource to be saved.",
+            "description": "The find()-style query to be saved.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Query"
+              "$ref": "#/definitions/FindQuery"
             }
           }
         ],
         "tags": [
-          "Query"
+          "Find"
         ],
         "responses": {
           "201": {
-            "description": "Returns a unique resource id URI in the Location: header as well as in the body of the response.",
+            "description": "Stores the query and returns the unique resource id URI in the Location: header as well as in the body of the response.",
             "schema": {
-              "$ref": "#/definitions/Query"
+              "$ref": "#/definitions/FindQuery"
             }
           },
           "default": {
@@ -114,7 +136,7 @@
       },
       "put": {
         "summary": "Update a Query",
-        "description": "Update a specific Query using the provided resourceId as the key.",
+        "description": "Update a specific Query using the provided id as the key.",
         "parameters": [
           {
             "name": "body",
@@ -122,12 +144,12 @@
             "description": "The updated resource.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Query"
+              "$ref": "#/definitions/FindQuery"
             }
           }
         ],
         "tags": [
-          "Query"
+          "Find"
         ],
         "responses": {
           "204": {
@@ -143,9 +165,9 @@
       },
       "delete": {
         "summary": "Remove a Query",
-        "description": "Delete a specific Query associated with the resourceId.",
+        "description": "Delete a specific Query associated with the id.",
         "tags": [
-          "Query"
+          "Find"
         ],
         "responses": {
           "204": {
@@ -160,7 +182,7 @@
         }
       }
     },
-    "/{accountId}/realms/{realmId}/queries/{resourceId}?exec=true": {
+    "/{accountId}/realms/{realmId}/queries/{aggregateQueryId}": {
       "parameters": [
         {
           "name": "accountId",
@@ -177,35 +199,282 @@
           "type": "string"
         },
         {
-          "name": "resourceId",
+          "name": "aggregateQueryId",
+          "in": "path",
+          "description": "The unique id of a Query that uses the aggregate()-style API.",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve a Query",
+        "description": "Retrieve a single specific Query associated with the id.",
+        "tags": [
+          "Aggregate"
+        ],
+        "responses": {
+          "200": {
+            "description": "The a single Query that uses the aggregate()-style API.",
+            "schema": {
+              "$ref": "#/definitions/AggregateQuery"
+            }
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Store a Query",
+        "description": "Save a specific Query using the provided id as the key.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The aggregate()-style query to be saved.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AggregateQuery"
+            }
+          }
+        ],
+        "tags": [
+          "Aggregate"
+        ],
+        "responses": {
+          "201": {
+            "description": "Stores the query and returns the unique resource id URI in the Location: header as well as in the body of the response.",
+            "schema": {
+              "$ref": "#/definitions/AggregateQuery"
+            }
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a Query",
+        "description": "Update a specific Query using the provided id as the key.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The updated resource.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AggregateQuery"
+            }
+          }
+        ],
+        "tags": [
+          "Aggregate"
+        ],
+        "responses": {
+          "204": {
+            "description": "Returns status code indicating succes and no further content."
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove a Query",
+        "description": "Delete a specific Query associated with the id.",
+        "tags": [
+          "Aggregate"
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates that the resource was successfully deleted."
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/{accountId}/realms/{realmId}/queries/{queryChainId}": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which one or more realms are managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "realmId",
+          "in": "path",
+          "description": "The realm under which this resource is managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "queryChainId",
+          "in": "path",
+          "description": "The unique id of a Query Chain",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve a Query Chain",
+        "description": "Retrieve a single specific Query Chain associated with the id.",
+        "tags": [
+          "Chain"
+        ],
+        "responses": {
+          "200": {
+            "description": "A single Query Chain.",
+            "schema": {
+              "$ref": "#/definitions/QueryChain"
+            }
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Store a Query Chain",
+        "description": "Save a specific Query Chain using the provided id as the key.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The Query Chain to be saved.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QueryChain"
+            }
+          }
+        ],
+        "tags": [
+          "Chain"
+        ],
+        "responses": {
+          "201": {
+            "description": "Stores the query and returns the unique resource id URI in the Location: header as well as in the body of the response.",
+            "schema": {
+              "$ref": "#/definitions/QueryChain"
+            }
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a Query Chain",
+        "description": "Update a specific Query Chain using the provided id as the key.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The updated resource.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QueryChain"
+            }
+          }
+        ],
+        "tags": [
+          "Chain"
+        ],
+        "responses": {
+          "204": {
+            "description": "Returns status code indicating succes and no further content."
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove a Query Chain",
+        "description": "Delete a specific Query Chain associated with the id.",
+        "tags": [
+          "Chain"
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates that the resource was successfully deleted."
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/{accountId}/realms/{realmId}/queries/{queryId}?exec=true": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which one or more realms are managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "realmId",
+          "in": "path",
+          "description": "The realm under which this resource is managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "queryId",
           "in": "path",
           "description": "The unique id associated with this specific resource.",
           "required": true,
           "type": "string"
         }
       ],
-      "post": {
+      "get": {
         "summary": "Execute a Query",
-        "description": "Execute a specific Query using the provided resourceId as the key.",
+        "description": "Execute any kind of Query - Find, Aggregate, or Chain, using the provided id as the key.",
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "description": "The parameters to pass to the Query.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/QueryResults"
-            }
+            "name": "mode",
+            "in": "query",
+            "description": "Runs the Query in debug mode which returns additional information along with the results.",
+            "required": false,
+            "type": "string",
+            "default": "debug"
           }
         ],
-        "tags": [
-          "Query"
-        ],
+        "tags": ["Query"],
         "responses": {
           "200": {
             "description": "Returns the results from the executed query.",
             "schema": {
-              "$ref": "#/definitions/Query"
+              "$ref": "#/definitions/QueryResults"
             }
           },
           "default": {
@@ -236,7 +505,7 @@
       ],
       "get": {
         "summary": "Retrieve one or more Queries",
-        "description": "Retrieve one or more Queries.  Instead of specifying a specific resourceId, the results are determined by optionally setting database query options.",
+        "description": "Retrieve one or more Queries.  Instead of specifying a specific id, the results are determined by optionally setting database query options.",
         "parameters": [
           {
             "name": "results",
@@ -287,7 +556,7 @@
       },
       "delete": {
         "summary": "Remove one or more Queries",
-        "description": "Deletes one or more Queries.  Instead of specifying a specific resourceId, the results are determined by optionally setting database query options.",
+        "description": "Deletes one or more Queries.  Instead of specifying a specific queryFindId, the results are determined by optionally setting database query options.",
         "parameters": [
           {
             "name": "query",
@@ -316,7 +585,7 @@
   },
   "definitions": {
     "Query": {
-      "description": "A Query represents a JSON document.",
+      "description": "A database Query described as a JSON document.",
       "type": "object"
     },
     "Queries": {
@@ -329,6 +598,36 @@
       "type": "array",
       "items": {
         "type": "object"
+      }
+    },
+    "FindQuery": {
+      "description": "A Query that uses the find() API.",
+      "type": "object"
+    },
+    "FindQueries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/FindQuery"
+      }
+    },
+    "AggregateQuery": {
+      "description": "A Query that uses the aggregate() API.",
+      "type": "object"
+    },
+    "AggregateaQueries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AggregateQuery"
+      }
+    },
+    "QueryChain": {
+      "description": "A Query chain that uses a multiple Queries and Transformers to get a single set of results.",
+      "type": "object"
+    },
+    "QueryChains": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/QueryChain"
       }
     },
     "Error": {
