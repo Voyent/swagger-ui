@@ -1,6 +1,5 @@
 {
   "LocationURI": {
-    "description": "A Document represents a JSON document.",
     "type": "object",
     "properties": {
       "uri": {
@@ -9,6 +8,7 @@
     }
   },
   "Error": {
+    "type": "object",
     "properties": {
       "code": {
         "type": "integer",
