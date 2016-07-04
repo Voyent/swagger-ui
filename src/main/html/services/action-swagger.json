@@ -242,82 +242,7 @@
         }
       }
     },
-    "/{accountId}/realms/{realmId}/actions/{resourceId}/permissions": {
-      "parameters": [
-        {
-          "name": "accountId",
-          "in": "path",
-          "description": "The account under which one or more realms are managed.",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "realmId",
-          "in": "path",
-          "description": "The realm under which this resource is managed.",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "resourceId",
-          "in": "path",
-          "description": "The id of the resource on which to act",
-          "required": true,
-          "type": "string"
-        }
-      ],
-      "get": {
-        "summary": "Retrieve the permissions settings for an Action resource",
-        "description": "Retrieve the access permissions block for a resource. Read permission pr is required to read the permissions",
-        "parameters": [],
-        "tags": [
-          "Actions"
-        ],
-        "responses": {
-          "200": {
-            "description": "The permission block for the resource",
-            "schema": {
-              "$ref": "#/definitions/Permission"
-            }
-          },
-          "default": {
-            "description": "An error occurred.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      },
-      "put": {
-        "summary": "Update a resources permissions",
-        "description": "Update the permission block for the resource. Access requires 'pr' permission to perform",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "description": "A copy of the resource to be updated.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Permission"
-            }
-          }
-        ],
-        "tags": [
-          "Actions"
-        ],
-        "responses": {
-          "204": {
-            "description": "The permission block has been successfully updated"
-          },
-          "default": {
-            "description": "An error occurred.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    }
+    "/{accountId}/realms/{realmId}/mailbox/{resourceId}/permissions":  {  "$ref": "permission-swagger.json" }
   },
   "definitions": {
     "Action": {
@@ -328,35 +253,6 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/Action"
-      }
-    },
-    "RightsBlock": {
-      "type": "object",
-      "properties": {
-        "owner": {
-          "description": "The rights defined for the owner of the resource. Any of ['r', 'u', 'd', 'x', 'pr', 'pu']",
-          "type": "string"
-        },
-        "realm": {
-          "description": "Access rights granted to other users in the same realm. Any of ['r', 'u', 'd', 'x', 'pr', 'pu']",
-          "type": "string"
-        },
-        "roles": {
-          "description": "A set of access blocks granted to roles defined in the system",
-          "type": "object"
-        }
-      }
-    },
-    "Permission": {
-      "type": "object",
-      "properties": {
-        "owner": {
-          "description": "The username of the creator of the resource",
-          "type": "string"
-        },
-        "rights": {
-          "$ref": "#/definitions/RightsBlock"
-        }
       }
     },
     "Error": {
