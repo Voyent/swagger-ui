@@ -38,9 +38,9 @@
     "/{accountId}/realms/{realmId}/group/{resourceId}": {
       "parameters": [
         {
-          "name": "accountId",
+          "name": "resourceId",
           "in": "path",
-          "description": "The account under which one or more realms are managed.",
+          "description": "The id of the group to receive the notification.",
           "required": true,
           "type": "string"
         },
@@ -52,24 +52,24 @@
           "type": "string"
         },
         {
-          "name": "resourceId",
+          "name": "accountId",
           "in": "path",
-          "description": "The unique id associated with this specific resource.",
+          "description": "The account under which one or more realms are managed.",
           "required": true,
           "type": "string"
         }
       ],
       "post": {
-        "summary": "Notify a Group",
-        "description": "Send a message to a group identified by the resourceId.",
+        "summary": "Send notification to group.",
+        "description": "Send a notification to the group identified by the resourceId.",
         "parameters": [
           {
             "name": "body",
             "in": "body",
-            "description": "The message (with metadata) to be sent.",
+            "description": "The notification to send.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Message"
+              "$ref": "#/definitions/Notification"
             }
           }
         ],
@@ -78,7 +78,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Returns status code indicating success and no additional content."
+            "description": "Notification successfully sent to group."
           },
           "default": {
             "description": "An error occurred.",
@@ -121,7 +121,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns a single, specific record uniquely identified by the resourceId",
+            "description": "Cloud Configuration successfully retrieved. Returns a single, specific record uniquely identified by the resourceId",
             "schema": {
               "$ref": "#/definitions/CloudConfiguration"
             }
@@ -153,7 +153,7 @@
         ],
         "responses": {
           "201": {
-            "description": "The URI representing the location of the resource.  The value is passed back in the Location: header as well as in the body of the response.",
+            "description": "Cloud Configuration successfully added. The URI representing the location of the resource.  The value is passed back in the Location: header as well as in the body of the response.",
             "schema": {
               "$ref": "definitions.json#/LocationURI"
             }
@@ -174,7 +174,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Indicates that the resource was successfully deleted."
+            "description": "Cloud Configuration sucessfully deleted."
           },
           "default": {
             "description": "An error occurred.",
@@ -187,13 +187,112 @@
     }
   },
   "definitions": {
-    "Message": {
-      "description": "The payload for push requests.",
-      "type": "object"
+    "Notification": {
+      "type": "object",
+      "title": "Push notification payload",
+      "description": "The message structure for a push notification.",
+      "properties": {
+        "global": {
+          "type": "object",
+          "title": "Common message properties.",
+          "description": "The global section holds properties common to all notification types.",
+          "schema": {
+            "$ref": "#/definitions/NotificationSettings"
+          }
+        },
+        "cloud": {
+          "type": "object",
+          "title": "Native Cloud (Apple, Android) Settings Override",
+          "description": "Used for optionally overriding global settings in native cloud (apns, c2dm) messages."
+        },
+        "email": {
+          "type": "object",
+          "title": "Email Settings Override",
+          "description": "Used for optionally overriding global settings in email messages."
+        },
+        "sms": {
+          "type": "object",
+          "title": "SMS Settings Override",
+          "description": "Used for optionally overriding settings in sms: messages."
+        }
+      },
+      "required": [
+        "global"
+      ]
+    },
+    "NotificationSettings": {
+      "type": "object",
+      "title": "Notification Settings",
+      "description": "The message structure for a push notification.",
+      "properties": {
+        "subject": {
+          "type": "string",
+          "title": "Notification Subject",
+          "description": "The overall subject or title of the message.",
+          "default": "The message subject goes here."
+        },
+        "details": {
+          "type": "string",
+          "title": "Notification Details",
+          "description": "The main information of the message.",
+          "default": "The message details go here."
+        },
+        "url": {
+          "type": "string",
+          "title": "Notification URL",
+          "description": "The URL referring back to the relevant application for the notification.",
+          "default": "http://voyent.com/myapp"
+        },
+        "icon": {
+          "type": "string",
+          "title": "Notification Icon URL",
+          "description": "The URL to an icon that may be optionally displayed with the notification.",
+          "default": "http://voyent.com/myapp"
+        },
+        "priority": {
+          "type": "string",
+          "title": "Notification Priority",
+          "description": "An optional priority setting for the notification.",
+          "default": "info"
+        },
+        "expire_time": {
+          "type": "string",
+          "title": "Notification Expiry.",
+          "description": "An optional timeout value (in ms) for the notification to live.",
+          "default": "259200"
+        },
+        "payload": {
+          "type": "object",
+          "title": "Notification Payload",
+          "description": "An optional payload object containing anything else the notification should also include."
+        }
+      },
+      "required": [
+        "subject",
+        "details",
+        "url"
+      ]
     },
     "CloudConfiguration": {
-      "description": "An endpoint for push requests.",
-      "type": "object"
+      "type": "object",
+      "title": "Cloud push endpoint configuration.",
+      "description": "A cloud push endpoint associated with a particular user.",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "The username to associate with the cloud push endpoint.",
+          "default": "someones.username"
+        },
+        "cloudPushURI": {
+          "type": "string",
+          "description": "The cloud push endpoint (e.g. mailto:, sms:, apns:, etc)",
+          "default": "mailto:someones.username@somedomain.org"
+        }
+      },
+      "required": [
+        "username",
+        "cloudPushURI"
+      ]
     }
   }
 }

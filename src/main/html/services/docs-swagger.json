@@ -247,7 +247,7 @@
   },
   "definitions": {
     "Document": {
-      "description": "A Document represents a JSON document.",
+      "description": "A Document represents a JSON document.  The application is free to provide any schema.",
       "type": "object"
     },
     "Documents": {
