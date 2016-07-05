@@ -1,5 +1,5 @@
 {
-  "swagger": 2.0,
+  "swagger": "2.0",
   "info": {
     "title": "AuthAdmin REST API Documentation and Client",
     "description": "This is the REST API documentation for the BridgeIt AuthAmdin portion of the Voyent  Service.  It's also a dynamic client that you can use to exercise the API and try it out.",
@@ -15,176 +15,164 @@
     "application/json"
   ],
   "paths": {
-     "/:accountname": {
-        "get": {
-          "summary": "Retrieve an account record",
-          "description": "Retrieve an entire account record",
-          "parameters": [
-            {
-              "name": "accountname",
-              "in": "path",
-              "description": "The id of the account record to fetch. Admin must have bridgeit.auth.viewAccount permission",
-              "required": true,
-              "type": "string"
+    "/:accountname": {
+      "get": {
+        "summary": "Retrieve an account record",
+        "description": "Retrieve an entire account record",
+        "parameters": [
+          {
+            "name": "accountname",
+            "in": "path",
+            "description": "The id of the account record to fetch. Admin must have bridgeit.auth.viewAccount permission",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AuthAdmin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a single, specific record uniquely identified by the resourceId",
+            "schema": {
+              "$ref": "AccessToken"
             }
-          ],
-          "tags": [
-            "AuthAdmin"
-          ],
-          "responses": {
-            "200": {
-              "description": "Returns a single, specific record uniquely identified by the resourceId",
-              "schema": {
-                "$ref": "AccessToken"
-              }
-            },
-            "default": {
-              "description": "An error occurred.",
-              "schema": {
-                "$ref": "#/definitions/Error"
-              }
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "definitions.json#Error"
             }
           }
         }
       }
-    },
-    "definitions": {
-      "AccessToken": {
-        "description": "A record containing and access_token the it's expiry time",
-        "type": "object",
-        "required": [
-          "access_token",
-          "expires_in"
-        ],
-        "properties": {
-          "access_token": {
-            "description": "A unique token used for security when accessing BridgeIt services.",
-            "type": "string"
-          },
-          "expires_in": {
-            "description": "The time when the access_token expires.  Expressed in Unix time (the number of milliseconds since midnight on January 1, 1970.",
-            "type": "number"
-          }
-        }
-      },
-      "AccountRecord": {
-        "description": "A record containing the account information",
-        "type": "object",
-        "required": [
-          "access_token",
-          "expires_in"
-        ],
-        "properties": {
-          "accountname": {
-            "description": "A unique name for the account. Must be unique within the system",
-            "type": "string"
-          },
-          "safeAccountname": {
-            "description": "The value of the accountname when it has been converted to mongo-safe format",
-            "type": "string"
-          },
-          "description": {
-            "description": "A description of the account record",
-            "type": "string"
-          },
-          "custom": {
-            "description": "A JSON formatted string of any particular content, defined by the client",
-            "type": "string"
-          },
-          "admins": {
-            "description": "The array of admins records defined for this account",
-            "$ref": "UserRecord"
-          },
-          "tsa_enable": {
-            "description": "A flag indicating the state of Two Stage Authorization",
-            "type": "boolean"
-          },
-          "realms": {
-            "description": "An array of Realm records maintained under this account",
-            "$ref": "RealmRecord"
-          }
-        }
-      },
-      "RealmRecord": {
-        "name": {
-          "description": "Name of the reaml",
+    }
+  },
+  "definitions": {
+    "AccessToken": {
+      "description": "A record containing and access_token the it's expiry time",
+      "type": "object",
+      "required": [
+        "access_token",
+        "expires_in"
+      ],
+      "properties": {
+        "access_token": {
+          "description": "A unique token used for security when accessing BridgeIt services.",
           "type": "string"
         },
-        "disabled": {
-          "description": "A flag allowing immediate halting of all logins in the realm",
-          "type": "boolean"
+        "expires_in": {
+          "description": "The time when the access_token expires.  Expressed in Unix time (the number of milliseconds since midnight on January 1, 1970.",
+          "type": "number"
+        }
+      }
+    },
+    "AccountRecord": {
+      "description": "A record containing the account information",
+      "type": "object",
+      "required": [
+        "access_token",
+        "expires_in"
+      ],
+      "properties": {
+        "accountname": {
+          "description": "A unique name for the account. Must be unique within the system",
+          "type": "string"
         },
-        "origins": {
-          "description": "An array of domain names that may use this realms services",
-          "type": "[string]"
+        "safeAccountname": {
+          "description": "The value of the accountname when it has been converted to mongo-safe format",
+          "type": "string"
         },
-        "services": {
-          "description": "a list of services used by users of this realm",
-          "type": "[string]"
-        },
-        "permissions": {
-          "description": "Deprecated: permissions granted to all users of the realm",
-          "type": "[string]"
-        },
-        "facebook": {
-          "description": "Information supporting Oauth2 integration with Facebook",
-          "$ref": "FacebookRecord"
-        },
-        "tsa_enable": {
-          "description": "A flag forcing all users in the realm to enable two stage authorization",
-          "type": "boolean"
-        },
-        "quick_user": {
-          "description": "A flag enabling quick user registration within the realm",
-          "type": "boolean"
-        },
-        "admin_access": {
-          "description": "Obsolete flag allowing admins to use services. No longer required",
-          "type": "boolean"
+        "description": {
+          "description": "A description of the account record",
+          "type": "string"
         },
         "custom": {
-          "description": "A JSON formatted string containing ad-hoc application values",
+          "description": "A JSON formatted string of any particular content, defined by the client",
           "type": "string"
         },
-        "roles": {
-          "description": "An array of Role descriptors associated with the realm",
-          "$ref": "RoleRecord"
-        }
-      },
-      "FacebookRecord": {
-        "enableOauth": {
-          "description": "Flag indicating Facebook OAuth login is enabled",
+        "admins": {
+          "description": "The array of admins records defined for this account",
+          "$ref": "UserRecord"
+        },
+        "tsa_enable": {
+          "description": "A flag indicating the state of Two Stage Authorization",
           "type": "boolean"
         },
-        "clientId": {
-          "description": "Facebook client ID from the Clients registered client application",
-          "type": "string"
-        },
-        "clientSecret": {
-          "description": "The Facebook application shared secret",
-          "type": "string"
+        "realms": {
+          "description": "An array of Realm records maintained under this account",
+          "$ref": "RealmRecord"
         }
+      }
+    },
+    "RealmRecord": {
+      "name": {
+        "description": "Name of the reaml",
+        "type": "string"
       },
-      "RoleRecord": {
-        "name": {
-          "description": "The name of the role",
-          "type": "string"
-        },
-        "permissions": {
-          "description": "Array of resource creation permissions granted to all realm users",
-          "type": "[string]"
-        }
+      "disabled": {
+        "description": "A flag allowing immediate halting of all logins in the realm",
+        "type": "boolean"
       },
-      "Error": {
-        "properties": {
-          "code": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
-          }
-        }
+      "origins": {
+        "description": "An array of domain names that may use this realms services",
+        "type": "[string]"
+      },
+      "services": {
+        "description": "a list of services used by users of this realm",
+        "type": "[string]"
+      },
+      "permissions": {
+        "description": "Deprecated: permissions granted to all users of the realm",
+        "type": "[string]"
+      },
+      "facebook": {
+        "description": "Information supporting Oauth2 integration with Facebook",
+        "$ref": "FacebookRecord"
+      },
+      "tsa_enable": {
+        "description": "A flag forcing all users in the realm to enable two stage authorization",
+        "type": "boolean"
+      },
+      "quick_user": {
+        "description": "A flag enabling quick user registration within the realm",
+        "type": "boolean"
+      },
+      "admin_access": {
+        "description": "Obsolete flag allowing admins to use services. No longer required",
+        "type": "boolean"
+      },
+      "custom": {
+        "description": "A JSON formatted string containing ad-hoc application values",
+        "type": "string"
+      },
+      "roles": {
+        "description": "An array of Role descriptors associated with the realm",
+        "$ref": "RoleRecord"
+      }
+    },
+    "FacebookRecord": {
+      "enableOauth": {
+        "description": "Flag indicating Facebook OAuth login is enabled",
+        "type": "boolean"
+      },
+      "clientId": {
+        "description": "Facebook client ID from the Clients registered client application",
+        "type": "string"
+      },
+      "clientSecret": {
+        "description": "The Facebook application shared secret",
+        "type": "string"
+      }
+    },
+    "RoleRecord": {
+      "name": {
+        "description": "The name of the role",
+        "type": "string"
+      },
+      "permissions": {
+        "description": "Array of resource creation permissions granted to all realm users",
+        "type": "[string]"
       }
     }
   }

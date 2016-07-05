@@ -63,7 +63,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -86,17 +86,6 @@
         "expires_in": {
           "description": "The time when the access_token expires.  Expressed in Unix time (the number of milliseconds since midnight on January 1, 1970.",
           "type": "number"
-        }
-      }
-    },
-    "Error": {
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
         }
       }
     }

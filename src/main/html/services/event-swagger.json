@@ -71,15 +71,15 @@
         ],
         "responses": {
           "201": {
-            "description": "Returns a unique resource id URI in the Location: header as well as in the body of the response.",
+            "description": "The URI representing the location of the resource.  The value is passed back in the Location: header as well as in the body of the response.",
             "schema": {
-              "$ref": "#/definitions/Event"
+              "$ref": "definitions.json#/LocationURI"
             }
           },
           "default": {
             "description": "Unexpected error",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -130,7 +130,7 @@
           "default": {
             "description": "Unexpected error",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -170,17 +170,6 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/Event"
-      }
-    },
-    "Error": {
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
-        }
       }
     }
   }

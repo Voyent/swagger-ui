@@ -97,7 +97,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -121,15 +121,15 @@
         ],
         "responses": {
           "201": {
-            "description": "Stores the query and returns the unique resource id URI in the Location: header as well as in the body of the response.",
+            "description": "The URI representing the location of the resource.  The value is passed back in the Location: header as well as in the body of the response.",
             "schema": {
-              "$ref": "#/definitions/FindQuery"
+              "$ref": "definitions.json#/LocationURI"
             }
           },
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -158,7 +158,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -176,7 +176,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -222,7 +222,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -246,15 +246,15 @@
         ],
         "responses": {
           "201": {
-            "description": "Stores the query and returns the unique resource id URI in the Location: header as well as in the body of the response.",
+            "description": "The URI representing the location of the resource.  The value is passed back in the Location: header as well as in the body of the response.",
             "schema": {
-              "$ref": "#/definitions/AggregateQuery"
+              "$ref": "definitions.json#/LocationURI"
             }
           },
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -283,7 +283,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -301,7 +301,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -347,7 +347,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -371,15 +371,15 @@
         ],
         "responses": {
           "201": {
-            "description": "Stores the query and returns the unique resource id URI in the Location: header as well as in the body of the response.",
+            "description": "The URI representing the location of the resource.  The value is passed back in the Location: header as well as in the body of the response.",
             "schema": {
-              "$ref": "#/definitions/QueryChain"
+              "$ref": "definitions.json#/LocationURI"
             }
           },
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -408,7 +408,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -426,7 +426,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -480,7 +480,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -549,7 +549,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -576,7 +576,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -621,24 +621,13 @@
       }
     },
     "QueryChain": {
-      "description": "A Query chain that uses a multiple Queries and Transformers to get a single set of results.",
+      "description": "A Query that uses multiple Queries and Transformers to get a single set of results.",
       "type": "object"
     },
     "QueryChains": {
       "type": "array",
       "items": {
         "$ref": "#/definitions/QueryChain"
-      }
-    },
-    "Error": {
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
-        }
       }
     }
   }

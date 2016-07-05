@@ -83,7 +83,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -123,13 +123,13 @@
           "200": {
             "description": "Returns a single, specific record uniquely identified by the resourceId",
             "schema": {
-              "$ref": "#/definitions/Document"
+              "$ref": "#/definitions/CloudConfiguration"
             }
           },
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -144,7 +144,7 @@
             "description": "The resource to be saved.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Cloud Configuration"
+              "$ref": "#/definitions/CloudConfiguration"
             }
           }
         ],
@@ -153,15 +153,15 @@
         ],
         "responses": {
           "201": {
-            "description": "Returns a unique resource id URI in the Location: header as well as in the body of the response.",
+            "description": "The URI representing the location of the resource.  The value is passed back in the Location: header as well as in the body of the response.",
             "schema": {
-              "$ref": "#/definitions/Cloud Configuration"
+              "$ref": "definitions.json#/LocationURI"
             }
           },
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -179,28 +179,21 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
       }
+    }
+  },
+  "definitions": {
+    "Message": {
+      "description": "The payload for push requests.",
+      "type": "object"
     },
-    "definitions": {
-      "Cloud Configuration": {
-        "description": "A Document represents a Cloud Configuration endpoint for push requests.",
-        "type": "object"
-      },
-      "Error": {
-        "properties": {
-          "code": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
-          }
-        }
-      }
+    "CloudConfiguration": {
+      "description": "An endpoint for push requests.",
+      "type": "object"
     }
   }
 }

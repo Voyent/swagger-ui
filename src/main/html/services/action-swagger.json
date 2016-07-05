@@ -75,7 +75,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -106,12 +106,15 @@
         ],
         "responses": {
           "201": {
-            "description": "Returns the created resource id URI in the Location: header as well as in the body of the response."
+            "description": "The URI representing the location of the resource.  The value is passed back in the Location: header as well as in the body of the response.",
+            "schema": {
+              "$ref": "definitions.json#/LocationURI"
+            }
           },
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -129,7 +132,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -153,12 +156,15 @@
         ],
         "responses": {
           "201": {
-            "description": "Indicates the Action has been updated"
+            "description": "The URI representing the location of the resource.  The value is passed back in the Location: header as well as in the body of the response.",
+            "schema": {
+              "$ref": "definitions.json#/LocationURI"
+            }
           },
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -218,7 +224,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -236,7 +242,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -253,17 +259,6 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/Action"
-      }
-    },
-    "Error": {
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
-        }
       }
     }
   }

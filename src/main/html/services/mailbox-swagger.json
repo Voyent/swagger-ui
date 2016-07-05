@@ -63,7 +63,7 @@
         "summary": "Retrieve the contents of a mailbox",
         "description": "Retrieves the contents of the mailbox identified by the id",
         "tags": [
-          "Mailboxes"
+          "Mailbox"
         ],
         "responses": {
           "200": {
@@ -75,7 +75,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -95,16 +95,19 @@
           }
         ],
         "tags": [
-          "Mailboxes"
+          "Mailbox"
         ],
         "responses": {
           "201": {
-            "description": "Returns the created resource id URI in the Location: header as well as in the body of the response."
+            "description": "The URI representing the location of the resource.  The value is passed back in the Location: header as well as in the body of the response.",
+            "schema": {
+              "$ref": "definitions.json#/LocationURI"
+            }
           },
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -113,7 +116,7 @@
         "summary": "Remove a mailbox",
         "description": "Delete a specific Mailbox identified by the resourceId .",
         "tags": [
-          "Mailboxes"
+          "Mailbox"
         ],
         "responses": {
           "204": {
@@ -122,14 +125,14 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
       },
       "put": {
-        "summary": "Update a Mailboxes content",
-        "description": "Update a mailboxes content using the provided resourceId as the key. This takes the client version as verbatim",
+        "summary": "Update a Mailbox's content",
+        "description": "Update a Mailbox's content using the provided resourceId as the key. This takes the client version verbatim",
         "parameters": [
           {
             "name": "body",
@@ -140,16 +143,16 @@
           }
         ],
         "tags": [
-          "Mailboxes"
+          "Mailbox"
         ],
         "responses": {
           "201": {
-            "description": "Indicates the Mailboxes content has been updated"
+            "description": "Indicates the Mailbox's content has been updated"
           },
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -216,7 +219,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -243,7 +246,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -261,7 +264,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -307,7 +310,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -325,7 +328,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -347,12 +350,12 @@
         ],
         "responses": {
           "201": {
-            "description": "Indicates the Mailboxes content has been updated"
+            "description": "Indicates the Mailbox's mail content has been updated"
           },
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -398,7 +401,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -416,7 +419,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "definitions.json#Error"
             }
           }
         }
@@ -469,17 +472,6 @@
       "roles": {
         "description": "A set of access blocks granted to roles defined in the system",
         "type": "object"
-      }
-    },
-    "Error": {
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
-        }
       }
     }
   }
