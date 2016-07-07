@@ -425,7 +425,8 @@
         }
       }
     },
-    "/{accountId}/realms/{realmId}/mailbox/{resourceId}/permissions":  {  "$ref": "permission-swagger.json" }
+    "/{accountId}/realms/{realmId}/mailbox/{resourceId}/permissions":  {  "$ref": "permission-swagger.json" },
+    "/{accountId}/realms/{realmId}/mailbox/permissions":  {  "$ref": "permission-general-swagger.json" }
   },
   "definitions": {
     "Mailbox": {

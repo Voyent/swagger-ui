@@ -1,0 +1,147 @@
+{
+  "get": {
+    "summary": "Retrieve the permissions settings for resources that match a query",
+    "description": "Retrieve the access permissions block for a set of resources. Read permission 'pr' is required to read the permissions",
+    "parameters": [
+      {
+        "name": "accountId",
+        "in": "path",
+        "description": "The account under which one or more realms are managed.",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "realmId",
+        "in": "path",
+        "description": "The realm under which this resource is managed.",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "query",
+        "in": "query",
+        "description": "The query clause for finding candidate records. Defaults to {}",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "limit",
+        "in": "query",
+        "description": "A limit clause for the number of mailboxes to get",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "fields",
+        "in": "query",
+        "description": "A fields clause for retrieving a certain projection",
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "tags": [
+      "Permissions"
+    ],
+    "responses": {
+      "200": {
+        "description": "The permission block for the resource",
+        "schema": {
+          "$ref": "Permission"
+        }
+      },
+      "default": {
+        "description": "An error occurred.",
+        "schema": {
+          "$ref": "#/definitions/Error"
+        }
+      }
+    }
+  },
+  "put": {
+    "summary": "Update a set of resources permissions in one step",
+    "description": "Update the permissions blocks for any resources that are found by the query. Take Care to only find the resource intended!",
+    "parameters": [
+      {
+        "name": "accountId",
+        "in": "path",
+        "description": "The account under which one or more realms are managed.",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "realmId",
+        "in": "path",
+        "description": "The realm under which this resource is managed.",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "query",
+        "in": "query",
+        "description": "The query clause for finding candidate records. Defaults to {}",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "body",
+        "in": "body",
+        "description": "The permission block to be assigned to all resources",
+        "required": true,
+        "schema": {
+          "$ref": "Permission"
+        }
+      }
+    ],
+    "tags": [
+      "Permissions"
+    ],
+    "responses": {
+      "204": {
+        "description": "The permission block has been successfully updated"
+      },
+      "default": {
+        "description": "An error occurred.",
+        "schema": {
+          "$ref": "#/definitions/Error"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Permission": {
+      "owner": {
+        "description": "The username of the creator of the resource",
+        "type": "string"
+      },
+      "rights": {
+        "description": "The rights description block",
+        "$ref": "RightsBlock"
+      }
+    },
+    "RightsBlock": {
+      "owner": {
+        "description": "The rights defined for the owner of the resource. Any of ['r', 'u', 'd', 'x', 'pr', 'pu']",
+        "type": "string"
+      },
+      "realm": {
+        "description": "Access rights granted to other users in the same realm. Any of ['r', 'u', 'd', 'x', 'pr', 'pu']",
+        "type": "string"
+      },
+      "roles": {
+        "description": "A set of access blocks granted to roles defined in the system",
+        "type": "object"
+      }
+    },
+    "Error": {
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

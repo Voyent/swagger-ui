@@ -644,6 +644,15 @@
     },
     "/{accountId}/realms/{realmId}/regions/{resourceId}/permissions": {
       "$ref": "permission-swagger.json"
+    },
+    "/{accountId}/realms/{realmId}/locations/permissions": {
+      "$ref": "permission-general-swagger.json"
+    },
+    "/{accountId}/realms/{realmId}/poi/permissions": {
+      "$ref": "permission-general-swagger.json"
+    },
+    "/{accountId}/realms/{realmId}/regions/permissions": {
+      "$ref": "permission-general-swagger.json"
     }
   },
   "definitions": {

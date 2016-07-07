@@ -514,7 +514,11 @@
           }
         }
       }
-    }
+    },
+    "/{accountId}/realms/{realmId}/handlers/{resourceId}/permissions":  {  "$ref": "permission-swagger.json" },
+    "/{accountId}/realms/{realmId}/handlers/permissions":  {  "$ref": "permission-general-swagger.json" },
+    "/{accountId}/realms/{realmId}/recognizers/{resourceId}/permissions":  {  "$ref": "permission-swagger.json" },
+    "/{accountId}/realms/{realmId}/recognizers/permissions":  {  "$ref": "permission-general-swagger.json" }
   },
   "definitions": {
     "Handler": {

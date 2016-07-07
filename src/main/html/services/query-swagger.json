@@ -581,7 +581,11 @@
           }
         }
       }
-    }
+    },
+    "/{accountId}/realms/{realmId}/queries/{resourceId}/permissions":  {
+      "$ref": "permission-swagger.json" },
+    "/{accountId}/realms/{realmId}/queries/permissions":  {
+      "$ref": "permission-general-swagger.json" }
   },
   "definitions": {
     "Query": {
