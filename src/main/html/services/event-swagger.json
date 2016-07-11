@@ -79,7 +79,7 @@
           "default": {
             "description": "Unexpected error",
             "schema": {
-              "$ref": "definitions.json#Error"
+              "$ref": "definitions.json#/Error"
             }
           }
         }
@@ -130,7 +130,7 @@
           "default": {
             "description": "Unexpected error",
             "schema": {
-              "$ref": "definitions.json#Error"
+              "$ref": "definitions.json#/Error"
             }
           }
         }

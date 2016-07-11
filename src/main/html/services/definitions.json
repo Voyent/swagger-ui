@@ -3,6 +3,7 @@
     "type": "object",
     "properties": {
       "uri": {
+        "default": "http://api.voyent.com/myAccount/realms/myRealm/idOfResource",
         "type": "string"
       }
     }

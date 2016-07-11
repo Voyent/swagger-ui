@@ -1,5 +1,5 @@
 {
-  "swagger": 2.0,
+  "swagger": "2.0",
   "info": {
     "title": "Locate REST API Documentation and Client",
     "description": "This is the REST API documentation for the BridgeIt Location Service.  It's also a dynamic client that you can use to exercise the API and try it out.",
@@ -77,7 +77,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#Error"
+              "$ref": "definitions.json#/Error"
             }
           }
         }
@@ -101,7 +101,7 @@
         ],
         "responses": {
           "201": {
-            "description": "The URI representing the location of the resource.  The value is passed back in the Location: header as well as in the body of the response.",
+            "description": "Location successfully saved. The URI representing the location of the resource.  The value is passed back in the Location: header as well as in the body of the response.",
             "schema": {
               "$ref": "definitions.json#/LocationURI"
             }
@@ -109,7 +109,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#Error"
+              "$ref": "definitions.json#/Error"
             }
           }
         }
@@ -128,7 +128,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#Error"
+              "$ref": "definitions.json#/Error"
             }
           }
         }
@@ -204,7 +204,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#Error"
+              "$ref": "definitions.json#/Error"
             }
           }
         }
@@ -231,7 +231,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#Error"
+              "$ref": "definitions.json#/Error"
             }
           }
         }
@@ -279,7 +279,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#Error"
+              "$ref": "definitions.json#/Error"
             }
           }
         }
@@ -311,7 +311,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#Error"
+              "$ref": "definitions.json#/Error"
             }
           }
         }
@@ -331,7 +331,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#Error"
+              "$ref": "definitions.json#/Error"
             }
           }
         }
@@ -407,7 +407,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#Error"
+              "$ref": "definitions.json#/Error"
             }
           }
         }
@@ -434,7 +434,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#Error"
+              "$ref": "definitions.json#/Error"
             }
           }
         }
@@ -482,7 +482,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#Error"
+              "$ref": "definitions.json#/Error"
             }
           }
         }
@@ -514,7 +514,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#Error"
+              "$ref": "definitions.json#/Error"
             }
           }
         }
@@ -534,7 +534,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#Error"
+              "$ref": "definitions.json#/Error"
             }
           }
         }
@@ -603,7 +603,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#Error"
+              "$ref": "definitions.json#/Error"
             }
           }
         }
@@ -630,7 +630,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#Error"
+              "$ref": "definitions.json#/Error"
             }
           }
         }
@@ -657,23 +657,16 @@
   },
   "definitions": {
     "Position": {
-      "description": "A single geographic point",
+      "description": "A single position",
       "type": "array",
       "minItems": 2,
-      "items": [
-        {
-          "description": "Longitude (-180 to 180)",
-          "type": "number",
-          "minimum": -180,
-          "maximum": 180
+      "maxItems": 2,
+      "items": {
+        "items": {
+          "type": "number"
         },
-        {
-          "description": "Latitude (-90 to 90)",
-          "type": "number",
-          "minimum": -90,
-          "maximum": 90
-        }
-      ]
+        "default": [-114.085411, 51.067814]
+      }
     },
     "PositionArray": {
       "description": "An array of Positions",
@@ -683,40 +676,56 @@
       }
     },
     "LinearRing": {
-      "description": "A single geographic point",
+      "description": "A closed ring demarcated by individual positions.",
       "minItems": 4,
-      "allOf": [
-        {
-          "$ref": "#/definitions/PositionArray"
-        }
-      ]
+      "items": {
+        "$ref": "#/definitions/PositionArray"
+      }
     },
     "Polygon": {
       "description": "An array of LinearRings",
       "type": "array",
       "items": {
         "$ref": "#/definitions/LinearRing"
-      }
+      },
+      "default": [
+        [
+          [-114.246826171875, 50.89523777360134],
+          [-114.246826171875, 51.19139393653174],
+          [-113.895263671875, 51.19139393653174],
+          [-113.895263671875, 50.89523777360134],
+          [-114.246826171875, 50.89523777360134]
+        ]
+      ]
     },
     "Location": {
-      "description": "A Location represents a users location information (longitude, latitude) in GeoJSON format. It also includes related metadata and optional, custom properties.",
+      "title": "Geographic Point",
+      "description": "A Location represents a location point (longitude, latitude) in GeoJSON format. It also includes related metadata and optional, custom properties.",
       "type": "object",
       "required": ["location"],
       "properties": {
         "label": {
-          "description": "Human friendly name for this resource.",
-          "type": "string"
+          "title": "Location Label",
+          "description": "Human-friendly label for the location.",
+          "type": "string",
+          "default": "ICEsoft Technologies, Inc."
         },
         "location": {
-          "description": "The GeoJSON record for this resource.",
+          "title": "GeoJSON Location",
+          "description": "The GeoJSON formatted record for this location.",
           "type": "object",
+          "required": ["geometry"],
           "properties": {
             "geometry": {
+              "title": "GeoJSON Geometry",
+              "description": "The specific geospatial information in GeoJSON format.",
               "type": "object",
+              "required": ["type", "coordinates"],
               "properties": {
                 "type": {
+                  "title": "GeoJSON Type (Point)",
+                  "description": "A Point - the [long, lat] coordinates that mark this location.",
                   "type": "string",
-                  "enum": ["Point"],
                   "default": "Point"
                 },
                 "coordinates": {
@@ -725,20 +734,17 @@
               }
             },
             "properties": {
-              "type": "object",
-              "description": "Optional, additional properties of the resource.",
-              "properties": {
-                "altitude": {
-                  "description": "The altitude of the Location in meters.",
-                  "type": "number"
-                }
-              }
+              "title": "Additional Properties",
+              "description": "Optional, additional properties associated with this location.",
+              "type": "object"
             }
           }
         }
       }
     },
     "Locations": {
+      "title": "Collection of Locations",
+      "description": "A collection of one or more Locations.",
       "type": "array",
       "items": {
         "$ref": "#/definitions/Location"
@@ -785,6 +791,8 @@
       }
     },
     "POIs": {
+      "title": "Collection of POI (Points Of Interest)",
+      "description": "A collection of one or more POI (Points Of Interest).",
       "type": "array",
       "items": {
         "$ref": "#/definitions/POI"
@@ -832,11 +840,8 @@
                   "minItems": 0,
                   "items": {
                     "type": "string"
-                  }
-                },
-                "altitude": {
-                  "description": "The altitude of the Region in meters.",
-                  "type": "number"
+                  },
+                  "default": ["icesoft", "calgary", "office"]
                 }
               }
             }
@@ -845,6 +850,8 @@
       }
     },
     "Regions": {
+      "title": "Collection of Regions",
+      "description": "A collection of one or more Regions.",
       "type": "array",
       "items": {
         "$ref": "#/definitions/Region"
