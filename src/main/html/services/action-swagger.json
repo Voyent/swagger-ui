@@ -26,6 +26,16 @@
       "token-header": []
     }
   ],
+  "tags": [
+    {
+      "name": "Action",
+      "description": "Individual Action operations."
+    },
+    {
+      "name": "Actions",
+      "description": "Group Action operations."
+    }
+  ],
   "schemes": [
     "http",
     "https"
@@ -63,7 +73,7 @@
         "summary": "Retrieve an Action script",
         "description": "Retrieve a single specific record associated with the resourceId.",
         "tags": [
-          "Actions"
+          "Action"
         ],
         "responses": {
           "200": {
@@ -102,7 +112,7 @@
           }
         ],
         "tags": [
-          "Actions"
+          "Action"
         ],
         "responses": {
           "201": {
@@ -123,7 +133,7 @@
         "summary": "Remove an Action",
         "description": "Delete a specific Action identified by the resourceId .",
         "tags": [
-          "Actions"
+          "Action"
         ],
         "responses": {
           "204": {
@@ -152,7 +162,7 @@
           }
         ],
         "tags": [
-          "Actions"
+          "Action"
         ],
         "responses": {
           "201": {
@@ -248,15 +258,104 @@
         }
       }
     },
-    "/{accountId}/realms/{realmId}/mailbox/{resourceId}/permissions":  {
-      "$ref": "permission-swagger.json" },
-    "/{accountId}/realms/{realmId}/mailbox/permissions":  {
-      "$ref": "permission-general-swagger.json" }
+    "/{accountId}/realms/{realmId}/mailbox/{resourceId}/permissions": {
+      "$ref": "permission-swagger.json"
+    },
+    "/{accountId}/realms/{realmId}/mailbox/permissions": {
+      "$ref": "permission-general-swagger.json"
+    }
   },
   "definitions": {
+    "Task": {
+      "title": "Task",
+      "description": "A Task represents a single unit of execution within an Action.",
+      "type": "object",
+      "required": ["name", "type"],
+      "properties": {
+        "name": {
+          "title": "Task Name",
+          "description": "The unique name of the Task within this Action",
+          "type": "string",
+          "default": "nameOfMyTask"
+        },
+        "desc": {
+          "title": "Task Description",
+          "description": "A short description of the Task.",
+          "type": "string",
+          "default": "myTask"
+        },
+        "params": {
+          "title": "Task Parameters",
+          "description": "Parameters that are passed into the Task.",
+          "type": "object"
+        },
+        "type": {
+          "title": "Task Type",
+          "description": "The type of Task to execute.  This must match a known, published Task.",
+          "type": "string",
+          "default": "doc-read-task"
+        }
+      }
+    },
+    "TaskGroup": {
+      "title": "Task Group",
+      "description": "A Task Group is a named array of Tasks.",
+      "type": "object",
+      "required": ["name", "type"],
+      "properties": {
+        "name": {
+          "title": "Task Group Name",
+          "description": "The unique name of the Task Group within this Action.",
+          "type": "string",
+          "default": "nameOfThisTaskGroup"
+        },
+        "type": {
+          "title": "Task Group Type",
+          "description": "The type of Task Group controlling how the Tasks will be executed.",
+          "type": "string",
+          "enum": [
+            "series-taskgroup",
+            "conditional-taskgroup",
+            "interval-taskgroup"
+          ]
+        },
+        "tasks": {
+          "title": "Tasks",
+          "description": "The collection of Tasks to execute as part of this Task Group.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Task"
+          }
+        },
+        "exitOnError": {
+          "title": "Exit on Error",
+          "description": "A flag indicating whether an error in this Task Group should cause the entire Action to exit.",
+          "type": "string",
+          "default": "false"
+        }
+      }
+    },
     "Action": {
-      "description": "An action consists of tasks, grouped under taskGroups. TBD. ",
-      "type": "object"
+      "title": "Task Group",
+      "description": "An Action consists one or more Task Groups, each of which contains one or more Tasks.",
+      "type": "object",
+      "required": ["name", "taskgroups"],
+      "properties": {
+        "name": {
+          "title": "Action Name",
+          "description": "The unique name of the Action.",
+          "type": "string",
+          "default": "nameOfMyAction"
+        },
+        "taskgroups": {
+          "title": "Tasks Groups",
+          "description": "The collection of Task Groups to execute as part of this Action.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TaskGroup"
+          }
+        }
+      }
     },
     "Actions": {
       "type": "array",
