@@ -1,0 +1,18 @@
+{
+  "import": {
+    "get": {
+      "tags": [
+        "Imported"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "Fake Record"
+        }
+      }
+    }
+  }
+}
