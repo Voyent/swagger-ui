@@ -46,7 +46,7 @@
       "200": {
         "description": "The permission block for the resource",
         "schema": {
-          "$ref": "Permission"
+          "$ref": "#/definitions/Permission"
         }
       },
       "default": {
@@ -88,7 +88,7 @@
         "description": "The permission block to be assigned to all resources",
         "required": true,
         "schema": {
-          "$ref": "Permission"
+          "$ref": "#/definitions/Permission"
         }
       }
     ],
