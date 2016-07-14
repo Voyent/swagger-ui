@@ -36,14 +36,6 @@
   ],
   "tags": [
     {
-      "name": "Query",
-      "description": "Individual Query operations."
-    },
-    {
-      "name": "Queries",
-      "description": "Group Query operations."
-    },
-    {
       "name": "Find",
       "description": "Queries that use the find() API."
     },
@@ -53,7 +45,15 @@
     },
     {
       "name": "Chain",
-      "description": "Series of Queries and transformations."
+      "description": "Queries based on a series of Queries and Transformations."
+    },
+    {
+      "name": "Execute",
+      "description": "Execute any kind of Query."
+    },
+    {
+      "name": "Queries",
+      "description": "Group Query operations."
     }
   ],
   "paths": {
@@ -97,7 +97,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#/Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -123,13 +123,13 @@
           "201": {
             "description": "The URI representing the location of the resource.  The value is passed back in the Location: header as well as in the body of the response.",
             "schema": {
-              "$ref": "definitions.json#/LocationURI"
+              "$ref": "#/definitions/LocationURI"
             }
           },
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#/Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -158,7 +158,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#/Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -176,7 +176,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#/Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -222,7 +222,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#/Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -248,13 +248,13 @@
           "201": {
             "description": "The URI representing the location of the resource.  The value is passed back in the Location: header as well as in the body of the response.",
             "schema": {
-              "$ref": "definitions.json#/LocationURI"
+              "$ref": "#/definitions/LocationURI"
             }
           },
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#/Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -283,7 +283,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#/Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -301,7 +301,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#/Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -347,7 +347,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#/Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -373,13 +373,13 @@
           "201": {
             "description": "The URI representing the location of the resource.  The value is passed back in the Location: header as well as in the body of the response.",
             "schema": {
-              "$ref": "definitions.json#/LocationURI"
+              "$ref": "#/definitions/LocationURI"
             }
           },
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#/Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -408,7 +408,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#/Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -426,7 +426,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#/Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -469,7 +469,7 @@
             "default": "debug"
           }
         ],
-        "tags": ["Query"],
+        "tags": ["Execute"],
         "responses": {
           "200": {
             "description": "Returns the results from the executed query.",
@@ -480,7 +480,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#/Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -541,7 +541,7 @@
         ],
         "responses": {
           "200": {
-            "description": "All resources that match the query.",
+            "description": "All resources that match the search pattern.",
             "schema": {
               "$ref": "#/definitions/Queries"
             }
@@ -549,7 +549,7 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#/Error"
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -576,62 +576,286 @@
           "default": {
             "description": "An error occurred.",
             "schema": {
-              "$ref": "definitions.json#/Error"
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "QueryParameter": {
+      "title": "Query Parameter",
+      "description": "A Query Parameter describes a single parameter to be passed into the Query prior to executing.",
+      "type": "object",
+      "required": ["name", "type"],
+      "properties": {
+        "name": {
+          "title": "Query Parameter Name",
+          "description": "The name of this Query Parameter.",
+          "type": "string"
+        },
+        "type": {
+          "title": "Query Parameter Type",
+          "description": "The type of this Query Parameter.",
+          "type": "string"
+        },
+        "default": {
+          "title": "Query Parameter Default Value",
+          "description": "Optional default value for this Query Parameter.",
+          "type": "string"
+        },
+        "desc": {
+          "title": "Query Parameter Description",
+          "description": "A description of the Query Parameter.",
+          "type": "string"
+        }
+      }
+    },
+    "Query": {
+      "title": "Query",
+      "description": "A Query holds the information required to search a database collection.",
+      "type": "object",
+      "required": ["properties"],
+      "properties": {
+        "properties": {
+          "title": "Query Properties",
+          "description": "Meta data relevant to this Query.",
+          "type": "object",
+          "required": [
+            "title",
+            "service",
+            "collection",
+            "type"
+          ],
+          "properties": {
+            "title": {
+              "title": "Query Title",
+              "description": "An informative name for the Query.",
+              "type": "string",
+              "default": "Employee Status Query"
+            },
+            "service": {
+              "title": "Service to Query",
+              "description": "The service that this query should run against.",
+              "type": "string",
+              "enum": ["action", "docs", "locate", "event", "mailbox", "query"],
+              "default": "docs"
+            },
+            "collection": {
+              "title": "Collection to Query",
+              "description": "The collection that this query should run against.",
+              "type": "string",
+              "default": "employeeStatus"
+            },
+            "type": {
+              "title": "Query Type",
+              "description": "The type of query",
+              "type": "string",
+              "enum": ["find", "aggregate", "chain"],
+              "default": "find"
+            },
+            "parameters": {
+              "title": "Query Parameters",
+              "description": "The potential parameters the Query requires to execute.",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/QueryParameter"
+              }
             }
           }
         }
       }
     },
-    "/{accountId}/realms/{realmId}/queries/{resourceId}/permissions":  {
-      "$ref": "permission-swagger.json" },
-    "/{accountId}/realms/{realmId}/queries/permissions":  {
-      "$ref": "permission-general-swagger.json" }
-  },
-  "definitions": {
-    "Query": {
-      "description": "A database Query described as a JSON document.",
-      "type": "object"
-    },
     "Queries": {
+      "title": "Queries",
+      "description": "A collection of Queries.",
       "type": "array",
       "items": {
         "$ref": "#/definitions/Query"
       }
     },
     "QueryResults": {
+      "title": "Queries",
+      "description": "The results of an executed Query.",
       "type": "array",
       "items": {
         "type": "object"
       }
     },
     "FindQuery": {
-      "description": "A Query that uses the find() API.",
-      "type": "object"
-    },
-    "FindQueries": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/FindQuery"
-      }
+      "allOf": [
+        {
+          "$ref": "#/definitions/Query"
+        },
+        {
+          "type": "object",
+          "required": [
+            "query"
+          ],
+          "properties": {
+            "query": {
+              "title": "find() parameters",
+              "description": "The parameters find, fields, and options.",
+              "type": "object",
+              "properties": {
+                "find": {
+                  "title": "Search criteria",
+                  "description": "An informative name for the Query.",
+                  "type": "object",
+                  "default": {
+                    "username": "bob"
+                  }
+                },
+                "fields": {
+                  "title": "Field Inclusion/Exclusion",
+                  "description": "The service that this query should run against.",
+                  "type": "object",
+                  "default": {
+                    "username": 1
+                  }
+                },
+                "options": {
+                  "title": "Search options",
+                  "description": "The collection that this query should run against.",
+                  "type": "object",
+                  "default": {
+                    "limit": 3
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
     },
     "AggregateQuery": {
+      "title": "Aggregate Query",
       "description": "A Query that uses the aggregate() API.",
-      "type": "object"
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Query"
+        },
+        {
+          "type": "object",
+          "required": [
+            "query"
+          ],
+          "properties": {
+            "query": {
+              "title": "aggregate() parameters",
+              "description": "The parameter functions for an aggregate query.",
+              "type": "array",
+              "items": {
+                "type": "object"
+              },
+              "default": [
+                {
+                  "$match": {
+                    "status": "active"
+                  }
+                },
+                {
+                  "$group": {
+                    "_id": "null",
+                    "usernames": {
+                      "$addToSet": "username"
+                    }
+                  }
+                },
+                {
+                  "$project": {
+                    "_id": 0,
+                    "usernames": 1
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
     },
-    "AggregateaQueries": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/AggregateQuery"
+    "QueryChainParameter": {
+      "title": "Query Chain Parameter",
+      "description": "A Query Chain parameter describes a single link in the chain - referencing either a Query or a Transformer.",
+      "type": "object",
+      "required": ["type", "id"],
+      "properties": {
+        "type": {
+          "title": "Query Chain Parameter Type",
+          "description": "The type of this Query Parameter.",
+          "type": "string",
+          "enum": ["query", "transform"]
+        },
+        "id": {
+          "title": "Query Chain Parameter ID",
+          "description": "The id that uniquely identifies this link in the Query Chain.",
+          "type": "string",
+          "default": "theQueryOrTransformerID"
+        }
       }
     },
     "QueryChain": {
-      "description": "A Query that uses multiple Queries and Transformers to get a single set of results.",
-      "type": "object"
+      "title": "Aggregate Query",
+      "description": "A Query that uses a series of Queries and Transformers to get a single set of results.",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Query"
+        },
+        {
+          "type": "object",
+          "required": [
+            "query"
+          ],
+          "properties": {
+            "query": {
+              "title": "The Query Chain",
+              "description": "A sequence of Queries and Transformers.",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/QueryChainParameter"
+              },
+              "default": [
+                {
+                  "type": "transform",
+                  "id": "convertStatus"
+                }, {
+                  "type": "query",
+                  "id": "findUsersWithStatus"
+                }, {
+                  "type": "transform",
+                  "id": "mapUsernames"
+                }, {
+                  "type": "query",
+                  "id": "findLastLocation"
+                }
+              ]
+            }
+          }
+        }
+      ]
     },
-    "QueryChains": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/QueryChain"
+    "LocationURI": {
+      "type": "object",
+      "properties": {
+        "uri": {
+          "default": "http://api.voyent.com/myAccount/realms/myRealm/idOfResource",
+          "type": "string"
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
       }
     }
   }
