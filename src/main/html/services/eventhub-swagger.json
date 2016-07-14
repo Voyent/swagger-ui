@@ -1,13 +1,9 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Eventhub REST API Documentation and Client",
-    "description": "This is the REST API documentation for the BridgeIt Eventhub Service. It's also a dynamic client that you can use to exercise the API and try it out.",
-    "version": "1.0.0",
-    "license": {
-      "name": "ICESOFT COMMERCIAL SOURCE CODE LICENSE V 1.1",
-      "url": "http://www.icesoft.com/license/commercial-source-v1.1.html"
-    }
+    "title": "Event Hub REST API Documentation and Client",
+    "description": "This is the REST API documentation for the Voyent Event Hub Service.  It's also a dynamic client that you can use to exercise the API and try it out.",
+    "version": "1.0.0"
   },
   "host": "dev.bridgeit.io",
   "schemes": [
@@ -18,6 +14,44 @@
   "produces": [
     "application/json"
   ],
+    "securityDefinitions": {
+      "token-query": {
+        "type": "apiKey",
+        "name": "access_token",
+        "in": "query"
+      },
+      "token-header": {
+        "type": "apiKey",
+        "name": "Bearer",
+        "in": "header"
+      }
+    },
+    "security": [
+      {
+        "token-query": []
+      },
+      {
+        "token-header": []
+      }
+    ],
+    "tags": [
+      {
+        "name": "Handler",
+        "description": "Individual Location operations."
+      },
+      {
+        "name": "Handlers",
+        "description": "Group Location operations."
+      },
+      {
+        "name": "Recognizer",
+        "description": "Individual POI operations."
+      },
+      {
+        "name": "Recognizers",
+        "description": "Group POI operations."
+      }
+    ],
   "paths": {
     "/{accountId}/realms/{realmId}/handlers/{handlerId}": {
       "parameters": [
@@ -395,9 +429,6 @@
         }
       }
     },
-    "/{accountId}/realms/{realmId}/recognizers/{resourceId}/permissions": {
-      "$ref": "permission-swagger.json"
-    },
     "/{accountId}/realms/{realmId}/recognizers": {
       "parameters": [
         {
@@ -515,10 +546,12 @@
         }
       }
     },
-    "/{accountId}/realms/{realmId}/handlers/{resourceId}/permissions":  {  "$ref": "permission-swagger.json" },
-    "/{accountId}/realms/{realmId}/handlers/permissions":  {  "$ref": "permission-general-swagger.json" },
-    "/{accountId}/realms/{realmId}/recognizers/{resourceId}/permissions":  {  "$ref": "permission-swagger.json" },
-    "/{accountId}/realms/{realmId}/recognizers/permissions":  {  "$ref": "permission-general-swagger.json" }
+    "/{accountId}/realms/{realmId}/recognizers/{resourceId}/permissions": {
+      "$ref": "permission-swagger.json"
+    },
+    "/{accountId}/realms/{realmId}/recognizers/permissions": {
+      "$ref": "permission-general-swagger.json"
+    }
   },
   "definitions": {
     "Handler": {
