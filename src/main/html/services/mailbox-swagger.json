@@ -207,7 +207,7 @@
         "summary": "Retrieve a 'info' subresource record associated with the Mailbox",
         "description": "Retrieves the contents of the 'info' block identified by the query. Info is an optional subresource that may be attached to a Mailbox",
         "tags": [
-          "Mailboxes/Info"
+          "Mailbox/Info"
         ],
         "responses": {
           "200": {
@@ -237,7 +237,7 @@
           }
         ],
         "tags": [
-          "Mailboxes/Info"
+          "Mailbox/Info"
         ],
         "responses": {
           "201": {
@@ -255,7 +255,7 @@
         "summary": "Remove the 'Info' subdocument from the Mailbox resource",
         "description": "Removes the 'Info' Mailbox subResource",
         "tags": [
-          "Mailboxes/Info"
+          "Mailbox/Info"
         ],
         "responses": {
           "204": {
@@ -298,7 +298,7 @@
         "summary": "Retrieve the contents of the Mail subResource",
         "description": "Retrieves the contents of the Mail subResource of the mailbox identified by the id",
         "tags": [
-          "Mailboxes/Mail"
+          "Mailbox/Mail"
         ],
         "responses": {
           "200": {
@@ -319,7 +319,7 @@
         "summary": "Remove the Mail subResource from a mailbox",
         "description": "Delete a specific Mail subResource from the Mailbox identified by the resourceId",
         "tags": [
-          "Mailboxes/Mail"
+          "Mailbox/Mail"
         ],
         "responses": {
           "204": {
@@ -346,7 +346,7 @@
           }
         ],
         "tags": [
-          "Mailboxes/Mail"
+          "Mailbox/Mail"
         ],
         "responses": {
           "201": {
@@ -389,7 +389,7 @@
         "summary": "Retrieve the state subResource from the  mailbox",
         "description": "Retrieve the contents of the mailboxes state record identified by the resourceId",
         "tags": [
-          "Mailboxes/State"
+          "Mailbox/State"
         ],
         "responses": {
           "200": {
@@ -410,7 +410,7 @@
         "summary": "Remove the state subResource from a mailbox",
         "description": "Delete the state subResource from the mailbox identified by the resourceId",
         "tags": [
-          "Mailboxes/State"
+          "Mailbox/State"
         ],
         "responses": {
           "204": {
