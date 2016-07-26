@@ -2,10 +2,10 @@
   "swagger": "2.0",
   "info": {
     "title": "Locate REST API Documentation and Client",
-    "description": "This is the REST API documentation for the BridgeIt Location Service.  It's also a dynamic client that you can use to exercise the API and try it out.",
+    "description": "This is the REST API documentation for the Voyent Location Service.  It's also a dynamic client that you can use to exercise the API and try it out.",
     "version": "1.0.0"
   },
-  "host": "dev.bridgeit.io",
+  "host": "dev.voyent.cloud",
   "schemes": [
     "http",
     "https"

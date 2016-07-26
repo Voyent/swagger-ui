@@ -5,7 +5,7 @@
     "description": "This is the REST API documentation for the Voyent Action Service. It's also a dynamic client that you can use to exercise the API",
     "version": "1.0.0"
   },
-  "host": "dev.bridgeit.io",
+  "host": "dev.voyent.cloud",
   "securityDefinitions": {
     "token-query": {
       "type": "apiKey",
