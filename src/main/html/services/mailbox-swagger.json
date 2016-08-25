@@ -35,7 +35,57 @@
     "application/json"
   ],
   "paths": {
-    "/{accountId}/realms/{realmId}/mailboxes/{resourceId}": {
+    "/{accountId}/realms/{realmId}/mailboxes": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which one or more realms are managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "realmId",
+          "in": "path",
+          "description": "The realm under which this resource is managed.",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "summary": "Add data to user's mailboxes.",
+        "description": "Add one or more messages to the mailbox of one or more users.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The message(s) to be saved.",
+            "required": true,
+            "schema": {
+              "$ref": "MultiUserMessages"
+            }
+          }
+        ],
+        "tags": [
+          "Messages"
+        ],
+        "responses": {
+          "201": {
+            "description": "The URIs representing the location of the resources. The first value is passed back in the Location: header and the entire list of resource URIs are in the body of the response.",
+            "schema": {
+              "$ref": "LocationURIS"
+            }
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "definitions.json#/Error"
+            }
+          }
+        }
+      }
+    },
+    "/{accountId}/realms/{realmId}/mailboxes/{userId}/messages": {
       "parameters": [
         {
           "name": "accountId",
@@ -52,24 +102,35 @@
           "type": "string"
         },
         {
-          "name": "resourceId",
+          "name": "userId",
           "in": "path",
-          "description": "The unique id associated with this specific resource. In practice, this is generally a username to which the mailbox is assigned",
+          "description": "The user for which to create, get, or delete messages.",
           "required": true,
           "type": "string"
         }
       ],
-      "get": {
-        "summary": "Retrieve the contents of a mailbox",
-        "description": "Retrieves the contents of the mailbox identified by the id",
+      "post": {
+        "summary": "Add data to a user's mailbox.",
+        "description": "Add one or more messages to the mailbox of a specific user.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The message(s) to be saved.",
+            "required": true,
+            "schema": {
+              "$ref": "SingleUserMessages"
+            }
+          }
+        ],
         "tags": [
-          "Mailbox"
+          "Messages"
         ],
         "responses": {
-          "200": {
-            "description": "Returns a single, specific record uniquely identified by the resourceId",
+          "201": {
+            "description": "The URIs representing the location of the resources. The first value is passed back in the Location: header and the entire list of resource URIs are in the body of the response.",
             "schema": {
-              "$ref": "#/definitions/Mailbox"
+              "$ref": "LocationURIS"
             }
           },
           "default": {
@@ -80,28 +141,40 @@
           }
         }
       },
-      "post": {
-        "summary": "Create a mailbox",
-        "description": "Save a specific Mailbox using the provided resourceId as the key.",
+      "get": {
+        "summary": "Retrieve messages from a user's mailbox.",
+        "description": "Retrieve messages for a specific user based on the results returned from query parameters.",
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "description": "The resource to be saved.",
-            "required": true,
-            "schema": {
-              "$ref": "Mailbox"
-            }
+            "name": "query",
+            "in": "query",
+            "description": "A search query string for finding matching resources. Default {} (find all).",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Specify which fields to include/exclude in the results. Omit this parameter to return all fields in the matching documents.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "options",
+            "in": "query",
+            "description": "Additional options for the query results such as limit and sorting.",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
-          "Mailbox"
+          "Messages"
         ],
         "responses": {
-          "201": {
-            "description": "The URI representing the location of the resource.  The value is passed back in the Location: header as well as in the body of the response.",
+          "200": {
+            "description": "Returns an array of message records that match the query.",
             "schema": {
-              "$ref": "definitions.json#/LocationURI"
+              "$ref": "SingleUserMessages"
             }
           },
           "default": {
@@ -113,10 +186,127 @@
         }
       },
       "delete": {
-        "summary": "Remove a mailbox",
-        "description": "Delete a specific Mailbox identified by the resourceId .",
+        "summary": "Remove messages from a user's mailbox",
+        "description": "Remove messages for a specific user based on the results returned from query parameters.",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "A search query string for finding matching resources. Default {} (find all).",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Specify which fields to include/exclude in the results. Omit this parameter to return all fields in the matching documents.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "options",
+            "in": "query",
+            "description": "Additional options for the query results such as limit and sorting.",
+            "required": false,
+            "type": "string"
+          }
+        ],
         "tags": [
-          "Mailbox"
+          "Messages"
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates that the resource(s) were successfully deleted."
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "definitions.json#/Error"
+            }
+          }
+        }
+      }
+    },
+    "/{accountId}/realms/{realmId}/mailboxes/{userId}/messages/type/{messageType}": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which one or more realms are managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "realmId",
+          "in": "path",
+          "description": "The realm under which this resource is managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "userId",
+          "in": "path",
+          "description": "The user for which to get messages.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "messageType",
+          "in": "path",
+          "description": "The type of messages to get. Valid options are \"read\" or \"unread\".",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve messages of a specific type from a user's mailbox.",
+        "description": "Retrieve messages of a specific type for a specific user based on the results returned from query parameters.",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "A search query string for finding matching resources. Default {} (find all).",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Specify which fields to include/exclude in the results. Omit this parameter to return all fields in the matching documents.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "options",
+            "in": "query",
+            "description": "Additional options for the query results such as limit and sorting.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Messages"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns an array of message records that match the type and query.",
+            "schema": {
+              "$ref": "SingleUserMessages"
+            }
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "definitions.json#/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove messages of a specific type from a user's mailbox.",
+        "description": "Remove messages of a specific type for a specific user based on the results returned from query parameters.",
+        "tags": [
+          "Messages"
         ],
         "responses": {
           "204": {
@@ -129,148 +319,9 @@
             }
           }
         }
-      },
-      "put": {
-        "summary": "Update a Mailbox's content",
-        "description": "Update a Mailbox's content using the provided resourceId as the key. This takes the client version verbatim",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "description": "A copy of the resource to be updated.",
-            "required": true,
-            "type": "object"
-          }
-        ],
-        "tags": [
-          "Mailbox"
-        ],
-        "responses": {
-          "201": {
-            "description": "Indicates the Mailbox's content has been updated"
-          },
-          "default": {
-            "description": "An error occurred.",
-            "schema": {
-              "$ref": "definitions.json#/Error"
-            }
-          }
-        }
       }
     },
-    "/{accountId}/realms/{realmId}/mailboxes/{resourceId}/info": {
-      "parameters": [
-        {
-          "name": "accountId",
-          "in": "path",
-          "description": "The account under which one or more realms are managed",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "realmId",
-          "in": "path",
-          "description": "The realm under which this resource is managed",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "resourceId",
-          "in": "path",
-          "description": "The unique id associated with this specific resource",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "query",
-          "in": "query",
-          "description": "The query string for finding a set of mailboxes. Default {} (find all)",
-          "required": false,
-          "type": "string"
-        },
-        {
-          "name": "limit",
-          "in": "query",
-          "description": "A limit clause for the number of mailboxes to get",
-          "required": false,
-          "type": "string"
-        },
-        {
-          "name": "fields",
-          "in": "query",
-          "description": "A fields clause for retrieving a certain projection",
-          "required": false,
-          "type": "string"
-        }
-      ],
-      "get": {
-        "summary": "Retrieve a 'info' subresource record associated with the Mailbox",
-        "description": "Retrieves the contents of the 'info' block identified by the query. Info is an optional subresource that may be attached to a Mailbox",
-        "tags": [
-          "Mailbox/Info"
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns an array of Info records that match the query",
-            "schema": {
-              "$ref": "#/definitions/MailboxInfo"
-            }
-          },
-          "default": {
-            "description": "An error occurred.",
-            "schema": {
-              "$ref": "definitions.json#/Error"
-            }
-          }
-        }
-      },
-      "put": {
-        "summary": "Create/update an info subDocument",
-        "description": "Update a Info subResource",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "description": "A copy of the resource to be updated.",
-            "required": true,
-            "type": "object"
-          }
-        ],
-        "tags": [
-          "Mailbox/Info"
-        ],
-        "responses": {
-          "201": {
-            "description": "Indicates the Mailbox/Info subresource content has been updated"
-          },
-          "default": {
-            "description": "An error occurred.",
-            "schema": {
-              "$ref": "definitions.json#/Error"
-            }
-          }
-        }
-      },
-      "delete": {
-        "summary": "Remove the 'Info' subdocument from the Mailbox resource",
-        "description": "Removes the 'Info' Mailbox subResource",
-        "tags": [
-          "Mailbox/Info"
-        ],
-        "responses": {
-          "204": {
-            "description": "Indicates that the resources were successfully deleted."
-          },
-          "default": {
-            "description": "An error occurred.",
-            "schema": {
-              "$ref": "definitions.json#/Error"
-            }
-          }
-        }
-      }
-    },
-    "/{accountId}/realms/{realmId}/mailboxes/{resourceId}/mail": {
+    "/{accountId}/realms/{realmId}/mailboxes/{userId}/messages/{resourceId}": {
       "parameters": [
         {
           "name": "accountId",
@@ -287,24 +338,31 @@
           "type": "string"
         },
         {
+          "name": "userId",
+          "in": "path",
+          "description": "The user for which to get or delete messages.",
+          "required": true,
+          "type": "string"
+        },
+        {
           "name": "resourceId",
           "in": "path",
-          "description": "The unique id associated with this specific resource.",
+          "description": "The unique id associated with this specific resource. In practice, this is the system-generated ID that uniquely identifies a message.",
           "required": true,
           "type": "string"
         }
       ],
       "get": {
-        "summary": "Retrieve the contents of the Mail subResource",
-        "description": "Retrieves the contents of the Mail subResource of the mailbox identified by the id",
+        "summary": "Retrieve a messages from a user's mailbox.",
+        "description": "Retrieve a single specific message for a specific user's mailbox based on a resourceId.",
         "tags": [
-          "Mailbox/Mail"
+          "Messages"
         ],
         "responses": {
           "200": {
-            "description": "Returns a single, specific Mail record uniquely identified by the resourceId",
+            "description": "Returns a single, specific record uniquely identified by the resourceId.",
             "schema": {
-              "$ref": "#/definitions/MailboxMail"
+              "$ref": "SingleUserMessage"
             }
           },
           "default": {
@@ -316,41 +374,14 @@
         }
       },
       "delete": {
-        "summary": "Remove the Mail subResource from a mailbox",
-        "description": "Delete a specific Mail subResource from the Mailbox identified by the resourceId",
+        "summary": "Remove a message from a user's mailbox",
+        "description": "Remove a single specific message for a specific user's mailbox based on a resourceId.",
         "tags": [
-          "Mailbox/Mail"
+          "Messages"
         ],
         "responses": {
           "204": {
-            "description": "Indicates that the Mail subResource was successfully deleted"
-          },
-          "default": {
-            "description": "An error occurred.",
-            "schema": {
-              "$ref": "definitions.json#/Error"
-            }
-          }
-        }
-      },
-      "put": {
-        "summary": "Update/create a Mail subresource",
-        "description": "Update or create a Mail subresource on a mailbox",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "description": "A copy of the resource to be updated.",
-            "required": true,
-            "type": "object"
-          }
-        ],
-        "tags": [
-          "Mailbox/Mail"
-        ],
-        "responses": {
-          "201": {
-            "description": "Indicates the Mailbox's mail content has been updated"
+            "description": "Indicates that the resource was successfully deleted."
           },
           "default": {
             "description": "An error occurred.",
@@ -361,7 +392,7 @@
         }
       }
     },
-    "/{accountId}/realms/{realmId}/mailboxes/{resourceId}/state": {
+    "/{accountId}/realms/{realmId}/config": {
       "parameters": [
         {
           "name": "accountId",
@@ -376,26 +407,19 @@
           "description": "The realm under which this resource is managed.",
           "required": true,
           "type": "string"
-        },
-        {
-          "name": "resourceId",
-          "in": "path",
-          "description": "The unique id associated with this specific resource.",
-          "required": true,
-          "type": "string"
         }
       ],
       "get": {
-        "summary": "Retrieve the state subResource from the  mailbox",
-        "description": "Retrieve the contents of the mailboxes state record identified by the resourceId",
+        "summary": "Retrieve the configuration options for this service.",
+        "description": "Retrieve the configuration options for this service.",
         "tags": [
-          "Mailbox/State"
+          "Config"
         ],
         "responses": {
           "200": {
-            "description": "Returns an array of Mailbox records that match the query",
+            "description": "Returns an object containing the configuration parameters for this service.",
             "schema": {
-              "$ref": "#/definitions/MailboxState"
+              "$ref": "Configuration"
             }
           },
           "default": {
@@ -406,15 +430,26 @@
           }
         }
       },
-      "delete": {
-        "summary": "Remove the state subResource from a mailbox",
-        "description": "Delete the state subResource from the mailbox identified by the resourceId",
+      "put": {
+        "summary": "Update the configuration options for this service.",
+        "description": "Update the configuration options for this service.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The configuration parameters to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "Configuration"
+            }
+          }
+        ],
         "tags": [
-          "Mailbox/State"
+          "Config"
         ],
         "responses": {
           "204": {
-            "description": "Indicates that the resources were successfully deleted."
+            "description": "Returns status code indicating success and no further content."
           },
           "default": {
             "description": "An error occurred.",
@@ -425,31 +460,75 @@
         }
       }
     },
-    "/{accountId}/realms/{realmId}/mailbox/{resourceId}/permissions":  {  "$ref": "permission-swagger.json" },
-    "/{accountId}/realms/{realmId}/mailbox/permissions":  {  "$ref": "permission-general-swagger.json" }
+    "/{accountId}/realms/{realmId}/mailboxes/{userId}/messages/permissions":  {  "$ref": "permission-general-swagger.json" },
+    "/{accountId}/realms/{realmId}/mailboxes/{userId}/messages/{resourceId}/permissions":  {  "$ref": "permission-swagger.json" },
+    "/{accountId}/realms/{realmId}/config/permissions":  {  "$ref": "permission-swagger.json" }
   },
   "definitions": {
-    "Mailbox": {
-      "description": "Mailbox content may be any valid Javascript Object",
-      "type": "object"
-    },
-    "MailboxInfo": {
-      "description": "The Info subsection of the Mailbox.",
-      "type": "object"
-    },
-    "MailboxMail": {
-      "description": "The Mail subsection of the Mailbox.",
-      "type": "object"
-    },
-    "MailboxState": {
-      "description": "The State subsection of the Mailbox",
-      "type": "object"
-    },
-    "Mailboxes": {
+    "MultiUserMessages": {
+      "description": "Represents one or more messages meant for one or more users. Will accept an array of messages or a single message object.",
       "type": "array",
       "items": {
-        "$ref": "Mailbox"
-      }
+        "$ref": "MultiUserMessage"
+      },
+      "minItems":1
+    },
+    "MultiUserMessage": {
+      "description": "Represents a message meant for one or more users.",
+      "type": "object",
+      "properties": {
+        "for": {
+          "type": "array",
+          "description": "The list of users that the message is for (eg. ['user1','user2']",
+          "required":true,
+          "items": {
+            "type": "string",
+            "minLength":1
+          },
+          "minItems":1,
+          "uniqueItems":true
+        },
+        "message": {
+          "type": "object",
+          "description": "The message contents. This object has no set definition.",
+          "required":true,
+          "minProperties":1
+        }
+      },
+      "additionalProperties": false
+    },
+    "SingleUserMessages": {
+      "description": "Represents one or more message meant for a specific user. Will accept an array of messages or a single message object.",
+      "type": "array",
+      "items": {
+        "$ref": "SingleUserMessage"
+      },
+      "minItems":1
+    },
+    "SingleUserMessage": {
+      "description": "Represents a message meant for a specific user. This object has no set definition.",
+      "type": "object",
+      "required":true,
+      "minProperties":1
+    },
+    "Configuration": {
+      "description": "Represents the available configuration options for this service. Properties can only be modified and must be of a specific type.",
+      "type": "object",
+      "properties": {
+        "hoursAfterCreated": {
+          "description": "The time in hours after a message is created that it will be automatically deleted, regardless of whether it has been read or not.",
+          "type": "number",
+          "default":168,
+          "required":true
+        },
+        "hoursAfterRead": {
+          "description": "The time in hours after a message is read that it will be automatically deleted.",
+          "type": "number",
+          "default":24,
+          "required":true
+        }
+      },
+      "additionalProperties": false
     },
     "Permission": {
       "owner": {
@@ -459,6 +538,16 @@
       "rights": {
         "description": "The rights description block",
         "$ref": "RightsBlock"
+      }
+    },
+    "LocationURIS": {
+      "description":"Represents the resource URI(s) of one or more resources.",
+      "type": "object",
+      "properties": {
+        "uri": {
+          "description": "The list or resource URIs of the created resources. The URIs are returned in the same order that they were sent.",
+          "type": "array"
+        }
       }
     },
     "RightsBlock": {
