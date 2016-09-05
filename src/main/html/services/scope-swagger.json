@@ -1,0 +1,478 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Scope Service REST API Documentation and Client",
+    "description": "This is the REST API documentation for the Voyent Scope Service. It's also a dynamic client that you can use to exercise the API",
+    "version": "1.0.0"
+  },
+  "host": "dev.voyent.cloud",
+  "securityDefinitions": {
+    "token-query": {
+      "type": "apiKey",
+      "name": "access_token",
+      "in": "query"
+    },
+    "token-header": {
+      "type": "apiKey",
+      "name": "Bearer",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "token-query": []
+    },
+    {
+      "token-header": []
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "basePath": "/scope",
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/{accountId}/realms/{realmId}/scopes/realm": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which one or more realms are managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "realmId",
+          "in": "path",
+          "description": "The realm under which the data is scoped.",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "summary": "Create or update realm-scoped data.",
+        "description": "Set realm-scoped data based on the realmId and properties included in body.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "An object containing the property or properties to be saved under the scope.",
+            "required": true,
+            "schema": {
+              "$ref": "Data"
+            }
+          }
+        ],
+        "tags": [
+          "Scopes"
+        ],
+        "responses": {
+          "201": {
+            "description": "The URI representing the location of the resource. If one property was created the direct URL will be returned, if more than one then a URL referencing the entire scope will be returned. The value is passed back in the Location: header as well as in the body of the response.",
+            "schema": {
+              "$ref": "definitions.json#/LocationURI"
+            }
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "definitions.json#/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Retrieve realm-scoped data.",
+        "description": "To retrieve a specific property from the scope include the property name as a query parameter with no value. To retrieve all data from the scope include no query parameters other than the \"access_token\".",
+        "tags": [
+          "Scopes"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns one or more data properties from a particular scope.",
+            "schema": {
+              "$ref": "Data"
+            }
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "definitions.json#/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete realm-scoped data.",
+        "description": "To retrieve a specific property from the scope include the property name as a query parameter with no value. To delete the entire scope include an \"invalidate\" query parameter.",
+        "parameters": [
+          {
+            "name": "_invalidate",
+            "in": "query",
+            "description": "An optional boolean (no value) query parameter that indicates that the entire scope should be invalidated / deleted. Use with care, this action cannot be undone.",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "tags": [
+          "Scopes"
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates that the resource(s) were successfully deleted."
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "definitions.json#/Error"
+            }
+          }
+        }
+      }
+    },
+    "/{accountId}/realms/{realmId}/scopes/user/{resourceId}": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which one or more realms are managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "realmId",
+          "in": "path",
+          "description": "The realm under which this resource is managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "resourceId",
+          "in": "path",
+          "description": "The username, the user under which the data is scoped.",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "summary": "Create or update user-scoped data.",
+        "description": "Set user-scoped data based on the resourceId and properties included in body. Only allows creating data in existing scopes.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "An object containing the property or properties to be saved under the scope.",
+            "required": true,
+            "schema": {
+              "$ref": "Data"
+            }
+          }
+        ],
+        "tags": [
+          "Scopes"
+        ],
+        "responses": {
+          "201": {
+            "description": "The URI representing the location of the resource. If one property was created the direct URL will be returned, if more than one then a URL referencing the entire scope will be returned. The value is passed back in the Location: header as well as in the body of the response.",
+            "schema": {
+              "$ref": "definitions.json#/LocationURI"
+            }
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "definitions.json#/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Retrieve user-scoped data.",
+        "description": "To retrieve a specific property from the scope include the property name as a query parameter with no value. To retrieve all data from the scope include no query parameters other than the \"access_token\".",
+        "tags": [
+          "Scopes"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns one or more data properties from a particular scope.",
+            "schema": {
+              "$ref": "Data"
+            }
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "definitions.json#/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete user-scoped data.",
+        "description": "To retrieve a specific property from the scope include the property name as a query parameter with no value. To delete the entire scope include an \"invalidate\" query parameter.",
+        "parameters": [
+          {
+            "name": "_invalidate",
+            "in": "query",
+            "description": "An optional boolean (no value) query parameter that indicates that the entire scope should be invalidated / deleted. Use with care, this action cannot be undone.",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "tags": [
+          "Scopes"
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates that the resource(s) were successfully deleted."
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "definitions.json#/Error"
+            }
+          }
+        }
+      }
+    },
+    "/{accountId}/realms/{realmId}/scopes/process/{resourceId}": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which one or more realms are managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "realmId",
+          "in": "path",
+          "description": "The realm under which this resource is managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "resourceId",
+          "in": "path",
+          "description": "The process ID, the process under which the data is scoped.",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "summary": "Create or update process-scoped data.",
+        "description": "Set process-scoped data based on the resourceId and properties included in body. Only allows creating data in existing scopes.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "An object containing the property or properties to be saved under the scope.",
+            "required": true,
+            "schema": {
+              "$ref": "Data"
+            }
+          }
+        ],
+        "tags": [
+          "Scopes"
+        ],
+        "responses": {
+          "201": {
+            "description": "The URI representing the location of the resource. If one property was created the direct URL will be returned, if more than one then a URL referencing the entire scope will be returned. The value is passed back in the Location: header as well as in the body of the response.",
+            "schema": {
+              "$ref": "definitions.json#/LocationURI"
+            }
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "definitions.json#/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Retrieve process-scoped data.",
+        "description": "To retrieve a specific property from the scope include the property name as a query parameter with no value. To retrieve all data from the scope include no query parameters other than the \"access_token\".",
+        "tags": [
+          "Scopes"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns one or more data properties from a particular scope.",
+            "schema": {
+              "$ref": "Data"
+            }
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "definitions.json#/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete process-scoped data.",
+        "description": "To retrieve a specific property from the scope include the property name as a query parameter with no value. To delete the entire scope include an \"invalidate\" query parameter.",
+        "parameters": [
+          {
+            "name": "_invalidate",
+            "in": "query",
+            "description": "An optional boolean (no value) query parameter that indicates that the entire scope should be invalidated / deleted. Use with care, this action cannot be undone.",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "tags": [
+          "Scopes"
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates that the resource(s) were successfully deleted."
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "definitions.json#/Error"
+            }
+          }
+        }
+      }
+    },
+    "/{accountId}/realms/{realmId}/scopes/transaction/{resourceId}": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "in": "path",
+          "description": "The account under which one or more realms are managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "realmId",
+          "in": "path",
+          "description": "The realm under which this resource is managed.",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "resourceId",
+          "in": "path",
+          "description": "The transaction ID, the transaction under which the data is scoped.",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "summary": "Create or update transaction-scoped data.",
+        "description": "Set transaction-scoped data based on the resourceId and properties included in body. Only allows creating data in existing scopes.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "An object containing the property or properties to be saved under the scope.",
+            "required": true,
+            "schema": {
+              "$ref": "Data"
+            }
+          }
+        ],
+        "tags": [
+          "Scopes"
+        ],
+        "responses": {
+          "201": {
+            "description": "The URI representing the location of the resource. If one property was created the direct URL will be returned, if more than one then a URL referencing the entire scope will be returned. The value is passed back in the Location: header as well as in the body of the response.",
+            "schema": {
+              "$ref": "definitions.json#/LocationURI"
+            }
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "definitions.json#/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Retrieve transaction-scoped data.",
+        "description": "To retrieve a specific property from the scope include the property name as a query parameter with no value. To retrieve all data from the scope include no query parameters other than the \"access_token\".",
+        "tags": [
+          "Scopes"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns one or more data properties from a particular scope.",
+            "schema": {
+              "$ref": "Data"
+            }
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "definitions.json#/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete transaction-scoped data.",
+        "description": "To retrieve a specific property from the scope include the property name as a query parameter with no value. To delete the entire scope include an \"invalidate\" query parameter.",
+        "parameters": [
+          {
+            "name": "_invalidate",
+            "in": "query",
+            "description": "An optional boolean (no value) query parameter that indicates that the entire scope should be invalidated / deleted. Use with care, this action cannot be undone.",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "tags": [
+          "Scopes"
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates that the resource(s) were successfully deleted."
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "definitions.json#/Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Touch a transaction scope.",
+        "description": "Updates the last accessed time for the transaction scope. This call does not modify any properties and the body of the request will always be ignored. Only allows touching existing scopes.",
+        "tags": [
+          "Scopes"
+        ],
+        "responses": {
+          "204": {
+            "description": "Returns status code indicating success and no further content."
+          },
+          "default": {
+            "description": "An error occurred.",
+            "schema": {
+              "$ref": "definitions.json#/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Data": {
+      "description": "Represents one or more data properties.",
+      "type": "object",
+      "required":true,
+      "minProperties":1
+    }
+  }
+}
