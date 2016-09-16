@@ -67,7 +67,7 @@
           }
         ],
         "tags": [
-          "Scopes"
+          "Realm Scope"
         ],
         "responses": {
           "201": {
@@ -88,7 +88,7 @@
         "summary": "Retrieve realm-scoped data.",
         "description": "To retrieve a specific property from the scope include the property name as a query parameter with no value. To retrieve all data from the scope include no query parameters other than the \"access_token\".",
         "tags": [
-          "Scopes"
+          "Realm Scope"
         ],
         "responses": {
           "200": {
@@ -118,7 +118,7 @@
           }
         ],
         "tags": [
-          "Scopes"
+          "Realm Scope"
         ],
         "responses": {
           "204": {
@@ -172,7 +172,7 @@
           }
         ],
         "tags": [
-          "Scopes"
+          "User Scope"
         ],
         "responses": {
           "201": {
@@ -193,7 +193,7 @@
         "summary": "Retrieve user-scoped data.",
         "description": "To retrieve a specific property from the scope include the property name as a query parameter with no value. To retrieve all data from the scope include no query parameters other than the \"access_token\".",
         "tags": [
-          "Scopes"
+          "User Scope"
         ],
         "responses": {
           "200": {
@@ -223,7 +223,7 @@
           }
         ],
         "tags": [
-          "Scopes"
+          "User Scope"
         ],
         "responses": {
           "204": {
@@ -277,7 +277,7 @@
           }
         ],
         "tags": [
-          "Scopes"
+          "Process Scope"
         ],
         "responses": {
           "201": {
@@ -298,7 +298,7 @@
         "summary": "Retrieve process-scoped data.",
         "description": "To retrieve a specific property from the scope include the property name as a query parameter with no value. To retrieve all data from the scope include no query parameters other than the \"access_token\".",
         "tags": [
-          "Scopes"
+          "Process Scope"
         ],
         "responses": {
           "200": {
@@ -328,7 +328,7 @@
           }
         ],
         "tags": [
-          "Scopes"
+          "Process Scope"
         ],
         "responses": {
           "204": {
@@ -382,7 +382,7 @@
           }
         ],
         "tags": [
-          "Scopes"
+          "Transaction Scope"
         ],
         "responses": {
           "201": {
@@ -403,7 +403,7 @@
         "summary": "Retrieve transaction-scoped data.",
         "description": "To retrieve a specific property from the scope include the property name as a query parameter with no value. To retrieve all data from the scope include no query parameters other than the \"access_token\".",
         "tags": [
-          "Scopes"
+          "Transaction Scope"
         ],
         "responses": {
           "200": {
@@ -433,7 +433,7 @@
           }
         ],
         "tags": [
-          "Scopes"
+          "Transaction Scope"
         ],
         "responses": {
           "204": {
@@ -451,7 +451,7 @@
         "summary": "Touch a transaction scope.",
         "description": "Updates the last accessed time for the transaction scope. This call does not modify any properties and the body of the request will always be ignored. Only allows touching existing scopes.",
         "tags": [
-          "Scopes"
+          "Transaction Scope"
         ],
         "responses": {
           "204": {
