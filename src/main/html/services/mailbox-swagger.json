@@ -62,7 +62,7 @@
             "description": "The message(s) to be saved.",
             "required": true,
             "schema": {
-              "$ref": "MultiUserMessages"
+              "$ref": "#/definitions/MultiUserMessages"
             }
           }
         ],
@@ -73,7 +73,7 @@
           "201": {
             "description": "The URIs representing the location of the resources. The first value is passed back in the Location: header and the entire list of resource URIs are in the body of the response.",
             "schema": {
-              "$ref": "LocationURIS"
+              "$ref": "#/definitions/LocationURIS"
             }
           },
           "default": {
@@ -119,7 +119,7 @@
             "description": "The message(s) to be saved.",
             "required": true,
             "schema": {
-              "$ref": "SingleUserMessages"
+              "$ref": "#/definitions/SingleUserMessages"
             }
           }
         ],
@@ -130,7 +130,7 @@
           "201": {
             "description": "The URIs representing the location of the resources. The first value is passed back in the Location: header and the entire list of resource URIs are in the body of the response.",
             "schema": {
-              "$ref": "LocationURIS"
+              "$ref": "#/definitions/LocationURIS"
             }
           },
           "default": {
@@ -174,7 +174,7 @@
           "200": {
             "description": "Returns an array of message records that match the query.",
             "schema": {
-              "$ref": "SingleUserMessages"
+              "$ref": "#/definitions/SingleUserMessages"
             }
           },
           "default": {
@@ -291,7 +291,7 @@
           "200": {
             "description": "Returns an array of message records that match the type and query.",
             "schema": {
-              "$ref": "SingleUserMessages"
+              "$ref": "#/definitions/SingleUserMessages"
             }
           },
           "default": {
@@ -362,7 +362,7 @@
           "200": {
             "description": "Returns a single, specific record uniquely identified by the resourceId.",
             "schema": {
-              "$ref": "SingleUserMessage"
+              "$ref": "#/definitions/SingleUserMessage"
             }
           },
           "default": {
@@ -419,7 +419,7 @@
           "200": {
             "description": "Returns an object containing the configuration parameters for this service.",
             "schema": {
-              "$ref": "Configuration"
+              "$ref": "#/definitions/Configuration"
             }
           },
           "default": {
@@ -440,7 +440,7 @@
             "description": "The configuration parameters to be updated.",
             "required": true,
             "schema": {
-              "$ref": "Configuration"
+              "$ref": "#/definitions/Configuration"
             }
           }
         ],
@@ -469,7 +469,7 @@
       "description": "Represents one or more messages meant for one or more users. Will accept an array of messages or a single message object.",
       "type": "array",
       "items": {
-        "$ref": "MultiUserMessage"
+        "$ref": "#/definitions/MultiUserMessage"
       },
       "minItems":1
     },
@@ -501,7 +501,7 @@
       "description": "Represents one or more message meant for a specific user. Will accept an array of messages or a single message object.",
       "type": "array",
       "items": {
-        "$ref": "SingleUserMessage"
+        "$ref": "#/definitions/SingleUserMessage"
       },
       "minItems":1
     },
@@ -537,7 +537,7 @@
       },
       "rights": {
         "description": "The rights description block",
-        "$ref": "RightsBlock"
+        "$ref": "#/definitions/RightsBlock"
       }
     },
     "LocationURIS": {

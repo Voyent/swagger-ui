@@ -62,7 +62,7 @@
             "description": "An object containing the property or properties to be saved under the scope.",
             "required": true,
             "schema": {
-              "$ref": "Data"
+              "$ref": "#/definitions/Data"
             }
           }
         ],
@@ -94,7 +94,7 @@
           "200": {
             "description": "Returns one or more data properties from a particular scope.",
             "schema": {
-              "$ref": "Data"
+              "$ref": "#/definitions/Data"
             }
           },
           "default": {
@@ -167,7 +167,7 @@
             "description": "An object containing the property or properties to be saved under the scope.",
             "required": true,
             "schema": {
-              "$ref": "Data"
+              "$ref": "#/definitions/Data"
             }
           }
         ],
@@ -199,7 +199,7 @@
           "200": {
             "description": "Returns one or more data properties from a particular scope.",
             "schema": {
-              "$ref": "Data"
+              "$ref": "#/definitions/Data"
             }
           },
           "default": {
@@ -272,7 +272,7 @@
             "description": "An object containing the property or properties to be saved under the scope.",
             "required": true,
             "schema": {
-              "$ref": "Data"
+              "$ref": "#/definitions/Data"
             }
           }
         ],
@@ -304,7 +304,7 @@
           "200": {
             "description": "Returns one or more data properties from a particular scope.",
             "schema": {
-              "$ref": "Data"
+              "$ref": "#/definitions/Data"
             }
           },
           "default": {
@@ -377,7 +377,7 @@
             "description": "An object containing the property or properties to be saved under the scope.",
             "required": true,
             "schema": {
-              "$ref": "Data"
+              "$ref": "#/definitions/Data"
             }
           }
         ],
@@ -409,7 +409,7 @@
           "200": {
             "description": "Returns one or more data properties from a particular scope.",
             "schema": {
-              "$ref": "Data"
+              "$ref": "#/definitions/Data"
             }
           },
           "default": {
