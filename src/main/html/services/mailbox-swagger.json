@@ -546,7 +546,10 @@
       "properties": {
         "uri": {
           "description": "The list or resource URIs of the created resources. The URIs are returned in the same order that they were sent.",
-          "type": "array"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
